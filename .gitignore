@@ -42,3 +42,14 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+project/src/environments/environment.secret.ts
+
+# Cypress cache and screenshots/videos
+cypress/screenshots/
+cypress/videos/
+cypress/downloads/
+
+# Cypress binary cache (if ever downloaded into project, e.g., via custom config)
+**/cypress/cache/
+**/Cypress/

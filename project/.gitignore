@@ -41,6 +41,8 @@ testem.log
 .DS_Store
 Thumbs.db
 
+src/environments/environment.secret.ts
+
 # Cypress cache and screenshots/videos
 cypress/screenshots/
 cypress/videos/

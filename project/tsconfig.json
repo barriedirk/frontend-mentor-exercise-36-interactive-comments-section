@@ -16,14 +16,15 @@
     "module": "preserve",
     "baseUrl": "./",
     "paths": {
-      "@app/*": ["src/app/*"],
+      "@environment/*": ["src/environments/*"],
       "@store": ["src/app/store/index.ts"],
       "@features/*": ["src/app/features/*"],
       "@layouts/*": ["src/app/layouts/*"],
       "@components/*": ["src/app/components/*"],
-      "@interfaces/*": ["src/app/interfaces/*"],
-      "@services/*": ["src/app/services/*"],
-      "@modals/*": ["src/app/modals/*"]
+      "@interfaces/*": ["src/app/shared/interfaces/*"],
+      "@services/*": ["src/app/shared/services/*"],
+      "@modals/*": ["src/app/shared/modals/*"],
+      "@app/*": ["src/app/*"]
     }
   },
   "angularCompilerOptions": {
