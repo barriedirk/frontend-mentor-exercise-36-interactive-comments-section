@@ -21,7 +21,7 @@
       "@features/*": ["src/app/features/*"],
       "@layouts/*": ["src/app/layouts/*"],
       "@components/*": ["src/app/components/*"],
-      "@interfaces/*": ["src/app/shared/interfaces/*"],
+      "@models/*": ["src/app/shared/models/*"],
       "@services/*": ["src/app/shared/services/*"],
       "@modals/*": ["src/app/shared/modals/*"],
       "@app/*": ["src/app/*"]

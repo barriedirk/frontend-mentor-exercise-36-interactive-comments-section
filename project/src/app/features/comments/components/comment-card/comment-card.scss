@@ -1,0 +1,24 @@
+.comment-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    'header header'
+    'content content'
+    'upvote actions';
+
+  &-header {
+    grid-area: header;
+  }
+
+  &-content {
+    grid-area: content;
+  }
+
+  &-upvote {
+    grid-area: upvote;
+  }
+
+  &-actions {
+    grid-area: actions;
+  }
+}

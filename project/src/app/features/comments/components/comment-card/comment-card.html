@@ -1,0 +1,24 @@
+<article class="comment-card bg-white" [attr.aria-labelledby]="'comment-heading' + uniqueId">
+  <header class="comment-card-header flex items-center justify-center gap-2">
+    <h2 [attr.id]="'comment-heading' + uniqueId" class="sr-only">
+      Comment by {{comment.user.username}}
+    </h2>
+    <img
+      width="32px"
+      height="32px"
+      class="avatar"
+      [src]="comment.user.image.png"
+      [attr.alt]="`Avatar of ` + comment.user.username"
+    />
+    <span class="username text-preset-2-medium txt-grey-800">{{comment.user.username}}</span>
+    <time class="created-at txt-grey-500 text-preset-2" [attr.datetime]="comment.createdAt"
+      >{{comment.createdAt}}</time
+    >
+  </header>
+  <div class="comment-card-content text-preset-2 txt-grey-500">
+    <p>{{comment.content}}</p>
+  </div>
+  <app-comment-upvote class="comment-card-upvote justifify flex flex-row items-center gap-2" />
+
+  <app-comment-actions class="comment-card-actions justifify flex flex-row items-center gap-2" />
+</article>
