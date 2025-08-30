@@ -22,6 +22,10 @@
   color: var(--clr-grey-50);
 }
 
+@utility txt-starstruck {
+  color: var(--clr-starstruck);
+}
+
 @utility txt-purple-600 {
   color: var(--clr-purple-600);
 }
@@ -60,6 +64,10 @@
 
 @utility bg-grey-50 {
   background-color: var(--clr-grey-50);
+}
+
+@utility bg-starstruck {
+  background-color: var(--clr-starstruck);
 }
 
 @utility bg-purple-600 {

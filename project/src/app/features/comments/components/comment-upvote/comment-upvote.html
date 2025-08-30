@@ -1,7 +1,19 @@
-<button class="text-preset-2 txt-purple-600 bg-grey-50" aria-label="Upvote comment">
-  <img src="assets/images/icon-plus.svg" alt="" />
-</button>
-<span class="text-preset-2 txt-purple-600 bg-grey-50" aria-live="polite">{{ score }}</span>
-<button class="text-preset-2 txt-purple-600 bg-grey-50" aria-label="Downvote comment">
-  <img src="assets/images/icon-minus.svg" alt="" />
-</button>
+<div class="comment-upvote" [ngClass]="hostClasses">
+  <button
+    class="text-preset-2 txt-purple-600 bg-grey-50 flex-center h-[24px] w-[20px]"
+    aria-label="Upvote comment"
+  >
+    <img src="assets/images/icon-plus.svg" alt="" />
+  </button>
+  <span
+    class="text-preset-2 txt-purple-600 bg-grey-50 flex-center h-[24px] w-[30px]"
+    aria-live="polite"
+    >{{ state.comment()?.score ?? 0 }}</span
+  >
+  <button
+    class="text-preset-2 txt-purple-600 bg-grey-50 flex-center h-[24px] w-[20px]"
+    aria-label="Downvote comment"
+  >
+    <img src="assets/images/icon-minus.svg" alt="" />
+  </button>
+</div>

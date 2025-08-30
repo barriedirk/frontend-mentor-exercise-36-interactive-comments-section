@@ -1,6 +1,21 @@
+export interface UserData {
+  currentUser: CurrentUser;
+  comments: Comment[];
+}
+
 export interface User {
   username: string;
-  image: { png: string; webp: string };
+  image: Image;
+}
+
+export interface Image {
+  png: string;
+  webp: string;
+}
+
+export interface CurrentUser {
+  image: Image;
+  username: string;
 }
 
 export interface Comment {
@@ -8,7 +23,16 @@ export interface Comment {
   content: string;
   createdAt: string;
   score: number;
+  replies?: Comment[];
+  replyingTo?: string;
   user: User;
-  replies: Comment[];
-  replyingTo?: string; // Only for replies
+}
+
+export interface Reply {
+  id: number;
+  content: string;
+  createdAt: string;
+  score: number;
+  replyingTo: string;
+  user: User;
 }

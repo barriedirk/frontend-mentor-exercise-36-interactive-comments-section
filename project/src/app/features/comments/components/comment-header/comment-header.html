@@ -1,0 +1,28 @@
+@let comment = state.comment();
+@if (comment) {
+    <header class="comment-card-header flex items-center justify-start gap-[16px]">
+        <h2 [attr.id]="'comment-heading' + state.uniqueId()" class="sr-only">
+            Comment by {{ comment.user.username }}
+        </h2>
+        <img
+            width="32px"
+            height="32px"
+            class="avatar"
+            [src]="comment.user.image.png"
+            [attr.alt]="`Avatar of ` + comment.user.username"
+        />
+        <span class="username text-preset-2-medium txt-grey-800 flex-center gap-[8px]"
+            >{{ comment.user.username }}
+            @if (state.currentUser()) {
+                <em
+                    class="txt-white text-preset-3 flex-center p- bg-starstruck rounded-[2px] px-[8px] py-[4px] not-italic"
+                    >You</em
+                >
+            }
+        </span>
+
+        <time class="created-at txt-grey-500 text-preset-2" [attr.datetime]="comment.createdAt">{{
+            comment.createdAt
+        }}</time>
+    </header>
+}

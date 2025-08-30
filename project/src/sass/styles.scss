@@ -6,6 +6,17 @@
 
 @use './helpers/typography.css';
 @use './helpers/colors.css';
+@use './helpers/utils.css';
+
+@theme {
+  --breakpoint-mobile: 375px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1440px;
+
+  --breakpoint-sm: 23.4375em;
+  --breakpoint-md: 48em;
+  --breakpoint-lg: 1440px;
+}
 
 @layer base {
   html {

@@ -1,15 +1,14 @@
-import { ChangeDetectionStrategy, Component, Inject, ViewEncapsulation } from '@angular/core';
-
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { CommentCardState } from '../../services/command-card-state';
 
 @Component({
-    selector: 'app-comment-actions',
+    selector: 'app-comment-content',
     imports: [],
-    templateUrl: './comment-actions.html',
-    styleUrl: './comment-actions.scss',
+    templateUrl: './comment-content.html',
+    styleUrl: './comment-content.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
 })
-export class CommentActions {
+export class CommentContent {
     constructor(public state: CommentCardState) {}
 }
