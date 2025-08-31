@@ -6,7 +6,7 @@
 
     @if (comment.replies && comment.replies!.length > 0) {
       <div
-        class="comments-replies align-items flex flex-col items-center justify-center gap-[16px] py-2 md:gap-[24px]"
+        class="comments-replies align-items flex flex-col items-center justify-center gap-[16px] md:gap-[24px]"
       >
         @for (reply of comment.replies; track reply) {
           <app-comment-card [comment]="reply" [isReply]="true" />
