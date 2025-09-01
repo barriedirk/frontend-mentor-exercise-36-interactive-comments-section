@@ -1,16 +1,22 @@
 <article
   class="comment-card bg-white"
-  [ngClass]="{ 'comment-card--reply': isReply }"
+  [ngClass]="{ 'comment-card--reply': isReply, 'comment-card--add-comment': isAddComment }"
   [attr.aria-labelledby]="'comment-heading' + state.uniqueId()"
 >
-  <app-comment-header class="comment-card-header" />
+  @if (comment) {
+    <app-comment-header class="comment-card-header" />
 
-  <app-comment-content class="comment-card-content" />
+    <app-comment-content class="comment-card-content" />
 
-  <app-comment-upvote
-    class="comment-card-upvote"
-    classes="flex flex-row items-center w-fit md:flex-col md:gap-2"
-  />
+    <app-comment-upvote
+      class="comment-card-upvote"
+      classes="flex flex-row items-center w-fit md:flex-col md:gap-2"
+    />
 
-  <app-comment-actions class="comment-card-actions flex flex-row items-center gap-2" />
+    <app-comment-actions class="comment-card-actions flex flex-row items-center gap-2" />
+  }
+
+  @if (isAddComment) {
+    <app-comment-add-comment class="comment-card-add-comment" />
+  }
 </article>

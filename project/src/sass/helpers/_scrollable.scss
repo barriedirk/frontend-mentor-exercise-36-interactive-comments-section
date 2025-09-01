@@ -1,0 +1,26 @@
+.scrollable {
+  scrollbar-width: thin;
+  scrollbar-color: var(--clr-pink-200) transparent;
+  scroll-behavior: smooth;
+  padding: 0.7rem;
+
+  -webkit-overflow-scrolling: touch;
+  outline: none;
+}
+
+.scrollable:focus {
+  outline: 2px solid var(--clr-pink-200);
+}
+
+.scrollable::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollable::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+  background-color: var(--clr-pink-200);
+  border-radius: 4px;
+}

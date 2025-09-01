@@ -1,0 +1,23 @@
+<div class="modal-backdrop" (click)="onClose('abort')"></div>
+<div class="modal scrollable flex flex-col gap-[16px] rounded-[8px] p-[22px]">
+  <h3 class="modal__title text-preset-1 txt-grey-800">Delete comment</h3>
+  <p class="modal__body text-preset-2 txt-grey-500">
+    Are you sure you want to delete this comment? This will remove the comment and can’t be undone.
+  </p>
+  <div class="modal__actions flex flex-row items-center justify-between gap-[16px]">
+    <button
+      type="button"
+      class="text-preset-2-medium txt-white flex-center bg-grey-500 h-[48px] rounded-[8px] uppercase"
+      (click)="onClose('no')"
+    >
+      No, cancel
+    </button>
+    <button
+      type="button"
+      class="text-preset-2-medium txt-white flex-center h-[48px] rounded-[8px] bg-pink-400 uppercase"
+      (click)="onClose('yes')"
+    >
+      Yes, delete
+    </button>
+  </div>
+</div>
