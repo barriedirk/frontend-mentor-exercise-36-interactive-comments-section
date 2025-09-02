@@ -1,6 +1,10 @@
 <article
-  class="comment-card bg-white"
-  [ngClass]="{ 'comment-card--reply': isReply, 'comment-card--add-comment': isAddComment }"
+  class="comment-card self-stretch bg-white"
+  [ngClass]="{
+    'comment-card--information': !isAddComment || isReply,
+    'comment-card--reply': isReply,
+    'comment-card--add-comment': isAddComment,
+  }"
   [attr.aria-labelledby]="'comment-heading' + state.uniqueId()"
 >
   @if (comment) {

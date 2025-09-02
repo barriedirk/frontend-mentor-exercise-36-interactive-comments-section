@@ -1,19 +1,38 @@
 <section
   class="comments align-items flex flex-col items-center justify-center gap-[16px] py-2 md:gap-[24px]"
 >
-  @for (comment of comments(); track comment) {
-    <app-comment-card [comment]="comment" />
+  <app-comment-card
+    class="self-stretch"
+    [isAddComment]="true"
+    [currentUser]="store.currentUser()"
+  />
+
+  @for (comment of store.comments(); track comment) {
+    <app-comment-card
+      class="self-stretch"
+      [comment]="comment"
+      [currentUser]="store.currentUser()"
+    />
 
     @if (comment.replies && comment.replies!.length > 0) {
       <div
-        class="comments-replies align-items flex flex-col items-center justify-center gap-[16px] md:gap-[24px]"
+        class="comments-replies align-items flex flex-col items-center justify-center gap-[16px] self-stretch md:gap-[24px]"
       >
         @for (reply of comment.replies; track reply) {
-          <app-comment-card [comment]="reply" [isReply]="true" />
+          <app-comment-card
+            class="self-stretch"
+            [comment]="reply"
+            [isReply]="true"
+            [currentUser]="store.currentUser()"
+          />
         }
       </div>
     }
   }
 
-  <app-comment-card [isAddComment]="true" />
+  <app-comment-card
+    class="self-stretch"
+    [isAddComment]="true"
+    [currentUser]="store.currentUser()"
+  />
 </section>

@@ -12,6 +12,8 @@ import { CommentCard } from './components/comment-card/comment-card';
 import { Comment, UserData } from '@models/comment';
 import { HttpClient } from '@angular/common/http';
 
+import { GlobalStore } from '@app/state';
+
 @Component({
   standalone: true,
   selector: 'app-comments',
@@ -20,13 +22,14 @@ import { HttpClient } from '@angular/common/http';
   styleUrl: './comments.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Comments implements OnInit {
-  http = inject(HttpClient);
-  comments: WritableSignal<Comment[]> = signal([]);
+export class Comments {
+  store = inject(GlobalStore);
+  // http = inject(HttpClient);
+  // comments: WritableSignal<Comment[]> = signal([]);
 
-  ngOnInit(): void {
-    this.http.get<UserData>('/assets/data.json').subscribe((data: UserData) => {
-      this.comments.set(data.comments);
-    });
-  }
+  // ngOnInit(): void {
+  //   this.http.get<UserData>('/assets/data.json').subscribe((data: UserData) => {
+  //     this.comments.set(data.comments);
+  //   });
+  // }
 }

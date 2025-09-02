@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 
 import { NgClass } from '@angular/common';
 
-import { Comment } from '@models/comment';
+import { Comment, CurrentUser } from '@models/comment';
 import { CommentHeader } from '../comment-header/comment-header';
 import { CommentContent } from '../comment-content/comment-content';
 import { CommentUpvote } from '../comment-upvote/comment-upvote';
@@ -28,6 +28,7 @@ import { CommentCardState } from '../../services/command-card-state';
 })
 export class CommentCard implements OnInit {
   @Input() comment?: Comment;
+  @Input() currentUser?: CurrentUser;
   @Input() isReply: boolean = false;
   @Input() isAddComment: boolean = false;
 
@@ -36,12 +37,17 @@ export class CommentCard implements OnInit {
   ngOnInit() {
     if (this.comment) {
       this.state.comment.set(this.comment);
-      this.state.currentUser.set(true);
       this.state.allowDelete.set(true);
       this.state.allowEdit.set(true);
       this.state.allowReply.set(true);
+    }
 
-      console.log({ comment: this.comment });
+    if (this.currentUser) {
+      this.state.currentUser.set(this.currentUser);
+    }
+
+    if (this.comment?.user?.username === this.currentUser?.username) {
+      this.state.isCurrentUser.set(true);
     }
   }
 }

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommentCardState } from '@features/comments/services/command-card-state';
 
 @Component({
   selector: 'app-comment-add-comment',
@@ -14,4 +15,6 @@ export class CommentAddComment {
   form = new FormGroup({
     content: new FormControl('', [Validators.required, Validators.minLength(1)]),
   });
+
+  constructor(public state: CommentCardState) {}
 }

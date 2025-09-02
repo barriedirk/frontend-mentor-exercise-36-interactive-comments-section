@@ -3,17 +3,18 @@
   border-radius: 8px;
   width: 100%;
   max-width: 343px;
-  margin-left: auto;
 
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
 
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-areas:
-    'header header header'
-    'content content content'
-    'upvote actions actions';
-  gap: 16px;
+  &--information {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas:
+      'header header header'
+      'content content content'
+      'upvote actions actions';
+    gap: 16px;
+  }
 
   &-header {
     grid-area: header;
@@ -37,12 +38,15 @@
 
   @media screen and (min-width: 48em) {
     max-width: 684px;
+    margin-left: auto;
 
-    grid-template-columns: auto 1fr 1fr;
-    grid-template-areas:
-      'upvote header header actions'
-      'upvote content content content';
-    gap: 24px;
+    &--information {
+      grid-template-columns: auto 1fr 1fr;
+      grid-template-areas:
+        'upvote header header actions'
+        'upvote content content content';
+      gap: 24px;
+    }
 
     &--reply {
       width: calc(100% - 40px);
