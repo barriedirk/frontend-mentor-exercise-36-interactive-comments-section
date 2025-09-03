@@ -6,13 +6,13 @@
 
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
 
-  &--information {
+  &__information {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas:
       'header header header'
       'content content content'
-      'upvote actions actions';
+      'upvote shortcut shortcut';
     gap: 16px;
   }
 
@@ -28,8 +28,8 @@
     grid-area: upvote;
   }
 
-  &-actions {
-    grid-area: actions;
+  &-shortcut {
+    grid-area: shortcut;
   }
 
   &--reply {
@@ -40,10 +40,10 @@
     max-width: 684px;
     margin-left: auto;
 
-    &--information {
+    &__information {
       grid-template-columns: auto 1fr 1fr;
       grid-template-areas:
-        'upvote header header actions'
+        'upvote header header shortcut'
         'upvote content content content';
       gap: 24px;
     }

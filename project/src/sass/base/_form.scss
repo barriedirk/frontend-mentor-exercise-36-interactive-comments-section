@@ -1,15 +1,5 @@
 textarea::placeholder {
-  color: var(--clr-grey-500);
-
-  font-family: var(--ff);
-  font-weight: var(--fw-normal);
-  font-size: var(--fs-16);
-  line-height: 150%;
-  letter-spacing: 0px;
-}
-
-textarea::placeholder {
-  color: var(--clr-grey-800);
+  color: var(--clr-grey-200);
 
   font-family: var(--ff);
   font-weight: var(--fw-medium);

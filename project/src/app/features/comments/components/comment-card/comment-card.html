@@ -1,9 +1,9 @@
 <article
   class="comment-card self-stretch bg-white"
   [ngClass]="{
-    'comment-card--information': !isAddComment || isReply,
+    'comment-card__information': !isTextSend && !isTextReply && !isTextUpdate,
     'comment-card--reply': isReply,
-    'comment-card--add-comment': isAddComment,
+    'comment-card__form': isTextSend || isTextReply || isTextUpdate,
   }"
   [attr.aria-labelledby]="'comment-heading' + state.uniqueId()"
 >
@@ -17,10 +17,16 @@
       classes="flex flex-row items-center w-fit md:flex-col md:gap-2"
     />
 
-    <app-comment-actions class="comment-card-actions flex flex-row items-center gap-2" />
+    <app-comment-shortcut class="comment-card-shortcut flex flex-row items-center gap-2" />
   }
 
-  @if (isAddComment) {
-    <app-comment-add-comment class="comment-card-add-comment" />
+  @if (isTextSend || isTextReply || isTextUpdate) {
+    <app-comment-form
+      [isTextSend]="isTextSend"
+      [isTextReply]="isTextReply"
+      [isTextUpdate]="isTextUpdate"
+      [replyingTo]="replyingTo"
+      class="comment-card__form"
+    />
   }
 </article>

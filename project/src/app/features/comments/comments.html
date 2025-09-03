@@ -1,10 +1,13 @@
 <section
   class="comments align-items flex flex-col items-center justify-center gap-[16px] py-2 md:gap-[24px]"
 >
+  <app-comment-card class="self-stretch" [isTextSend]="true" [currentUser]="store.currentUser()" />
+
   <app-comment-card
     class="self-stretch"
-    [isAddComment]="true"
+    [isTextReply]="true"
     [currentUser]="store.currentUser()"
+    replyingTo="acme"
   />
 
   @for (comment of store.comments(); track comment) {
@@ -30,9 +33,18 @@
     }
   }
 
+  <app-comment-card class="self-stretch" [isTextSend]="true" [currentUser]="store.currentUser()" />
+
   <app-comment-card
     class="self-stretch"
-    [isAddComment]="true"
+    [isTextReply]="true"
+    replyingTo="acme"
+    [currentUser]="store.currentUser()"
+  />
+
+  <app-comment-card
+    class="self-stretch"
+    [isTextUpdate]="true"
     [currentUser]="store.currentUser()"
   />
 </section>
