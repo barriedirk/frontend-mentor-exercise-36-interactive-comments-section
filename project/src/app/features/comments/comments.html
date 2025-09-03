@@ -1,10 +1,14 @@
 <section
   class="comments align-items flex flex-col items-center justify-center gap-[16px] py-2 md:gap-[24px]"
 >
-  <app-comment-card class="self-stretch" [isTextSend]="true" [currentUser]="store.currentUser()" />
+  <app-comment-card
+    class="self-stretch px-[17px]"
+    [isTextSend]="true"
+    [currentUser]="store.currentUser()"
+  />
 
   <app-comment-card
-    class="self-stretch"
+    class="self-stretch px-[17px]"
     [isTextReply]="true"
     [currentUser]="store.currentUser()"
     replyingTo="acme"
@@ -12,38 +16,44 @@
 
   @for (comment of store.comments(); track comment) {
     <app-comment-card
-      class="self-stretch"
+      class="self-stretch px-[17px]"
       [comment]="comment"
       [currentUser]="store.currentUser()"
     />
 
     @if (comment.replies && comment.replies!.length > 0) {
-      <div
-        class="comments-replies align-items flex flex-col items-center justify-center gap-[16px] self-stretch md:gap-[24px]"
-      >
-        @for (reply of comment.replies; track reply) {
-          <app-comment-card
-            class="self-stretch"
-            [comment]="reply"
-            [isReply]="true"
-            [currentUser]="store.currentUser()"
-          />
-        }
+      <div class="">
+        <div
+          class="comments-replies align-items flex flex-col items-center justify-center gap-[16px] self-stretch md:gap-[24px]"
+        >
+          @for (reply of comment.replies; track reply) {
+            <app-comment-card
+              class="self-stretch px-[17px]"
+              [comment]="reply"
+              [isReply]="true"
+              [currentUser]="store.currentUser()"
+            />
+          }
+        </div>
       </div>
     }
   }
 
-  <app-comment-card class="self-stretch" [isTextSend]="true" [currentUser]="store.currentUser()" />
+  <app-comment-card
+    class="self-stretch px-[17px]"
+    [isTextSend]="true"
+    [currentUser]="store.currentUser()"
+  />
 
   <app-comment-card
-    class="self-stretch"
+    class="self-stretch px-[17px]"
     [isTextReply]="true"
     replyingTo="acme"
     [currentUser]="store.currentUser()"
   />
 
   <app-comment-card
-    class="self-stretch"
+    class="self-stretch px-[17px]"
     [isTextUpdate]="true"
     [currentUser]="store.currentUser()"
   />
