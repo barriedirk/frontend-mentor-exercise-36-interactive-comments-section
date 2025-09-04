@@ -1,14 +1,27 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
-import { CommentCardState } from '../../services/command-card-state';
+import { CommentCardState } from '../../services/comment-card-state';
+
+import { CommentStatus } from '../../services/comment-card-models';
+
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NgClass } from '@angular/common';
 
 @Component({
-    selector: 'app-comment-content',
-    imports: [],
-    templateUrl: './comment-content.html',
-    styleUrl: './comment-content.scss',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
+  selector: 'app-comment-content',
+  imports: [ReactiveFormsModule, NgClass],
+  templateUrl: './comment-content.html',
+  styleUrl: './comment-content.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
 })
 export class CommentContent {
-    constructor(public state: CommentCardState) {}
+  CommentStatus = CommentStatus;
+
+  form = new FormGroup({
+    content: new FormControl('', [Validators.required, Validators.minLength(1)]),
+  });
+
+  constructor(public state: CommentCardState) {}
+
+  update() {}
 }

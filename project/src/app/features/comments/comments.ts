@@ -1,16 +1,11 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  OnInit,
-  signal,
-  WritableSignal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
 import { CommentCard } from './components/comment-card/comment-card';
 
 import { Comment, UserData } from '@models/comment';
 import { HttpClient } from '@angular/common/http';
+
+import { CommentStatus } from '@features/comments/services/comment-card-models';
 
 import { GlobalStore } from '@app/state';
 
@@ -23,6 +18,8 @@ import { GlobalStore } from '@app/state';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Comments {
+  CommentStatus = CommentStatus;
+
   store = inject(GlobalStore);
   // http = inject(HttpClient);
   // comments: WritableSignal<Comment[]> = signal([]);

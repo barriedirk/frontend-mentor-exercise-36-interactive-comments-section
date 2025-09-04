@@ -1,4 +1,6 @@
-@if (state.allowDelete()) {
+@let status = state.status();
+
+@if (status === CommentStatus.INFORMATION) {
   <button
     class="text-preset-2-medium txt-pink-400 justifify-center align-center flex items-center gap-1"
     aria-label="Delete comment"
@@ -8,7 +10,7 @@
     Delete
   </button>
 }
-@if (state.allowReply()) {
+@if (status === CommentStatus.INFORMATION) {
   <button
     class="text-preset-2-medium txt-purple-600 justifify-center align-center flex items-center gap-1"
     aria-label="Reply to comment"
@@ -18,7 +20,7 @@
     Reply
   </button>
 }
-@if (state.allowEdit()) {
+@if (status === CommentStatus.INFORMATION) {
   <button
     class="text-preset-2-medium txt-purple-600 justifify-center align-center flex items-center gap-1"
     aria-label="Edit comment"

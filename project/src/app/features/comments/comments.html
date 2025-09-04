@@ -3,13 +3,13 @@
 >
   <app-comment-card
     class="self-stretch px-[17px]"
-    [isTextSend]="true"
+    [initialStatus]="CommentStatus.SEND"
     [currentUser]="store.currentUser()"
   />
 
   <app-comment-card
     class="self-stretch px-[17px]"
-    [isTextReply]="true"
+    [initialStatus]="CommentStatus.UPDATE"
     [currentUser]="store.currentUser()"
     replyingTo="acme"
   />
@@ -17,6 +17,7 @@
   @for (comment of store.comments(); track comment) {
     <app-comment-card
       class="self-stretch px-[17px]"
+      [initialStatus]="CommentStatus.INFORMATION"
       [comment]="comment"
       [currentUser]="store.currentUser()"
     />
@@ -29,6 +30,7 @@
           @for (reply of comment.replies; track reply) {
             <app-comment-card
               class="self-stretch px-[17px]"
+              [initialStatus]="CommentStatus.INFORMATION"
               [comment]="reply"
               [isReply]="true"
               [currentUser]="store.currentUser()"
@@ -41,20 +43,7 @@
 
   <app-comment-card
     class="self-stretch px-[17px]"
-    [isTextSend]="true"
-    [currentUser]="store.currentUser()"
-  />
-
-  <app-comment-card
-    class="self-stretch px-[17px]"
-    [isTextReply]="true"
-    replyingTo="acme"
-    [currentUser]="store.currentUser()"
-  />
-
-  <app-comment-card
-    class="self-stretch px-[17px]"
-    [isTextUpdate]="true"
+    [initialStatus]="CommentStatus.SEND"
     [currentUser]="store.currentUser()"
   />
 </section>

@@ -7,35 +7,36 @@ import { CommentHeader } from '../comment-header/comment-header';
 import { CommentContent } from '../comment-content/comment-content';
 import { CommentUpvote } from '../comment-upvote/comment-upvote';
 import { CommentShortcut } from '../comment-shortcut/comment-shortcut';
-import { CommentForm } from '../comment-form/comment-form';
 
-import { CommentCardState } from '../../services/command-card-state';
+import { CommentCardState } from '../../services/comment-card-state';
+
+import { CommentStatusType, CommentStatus } from '@features/comments/services/comment-card-models';
 
 @Component({
   selector: 'app-comment-card',
-  imports: [NgClass, CommentHeader, CommentContent, CommentUpvote, CommentShortcut, CommentForm],
+  imports: [NgClass, CommentHeader, CommentContent, CommentUpvote, CommentShortcut],
   templateUrl: './comment-card.html',
   styleUrl: './comment-card.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [CommentCardState],
 })
 export class CommentCard implements OnInit {
+  CommentStatus = CommentStatus;
+
   @Input() comment?: Comment;
   @Input() currentUser?: CurrentUser;
+  @Input() initialStatus?: CommentStatusType;
   @Input() isReply: boolean = false;
-  @Input() isTextSend: boolean = false;
-  @Input() isTextReply: boolean = false;
-  @Input() isTextUpdate: boolean = false;
   @Input() replyingTo: string = '';
 
   constructor(public state: CommentCardState) {}
 
   ngOnInit() {
+    this.state.status.set(this.initialStatus ?? CommentStatus.INFORMATION);
+    this.state.replyingTo.set(this.replyingTo ?? '');
+
     if (this.comment) {
       this.state.comment.set(this.comment);
-      this.state.allowDelete.set(true);
-      this.state.allowEdit.set(true);
-      this.state.allowReply.set(true);
     }
 
     if (this.currentUser) {

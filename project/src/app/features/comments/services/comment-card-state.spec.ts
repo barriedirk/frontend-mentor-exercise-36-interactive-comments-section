@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CommentCardState } from './command-card-state';
+import { CommentCardState } from './comment-card-state';
 
 describe('CommentCardState', () => {
   let service: CommentCardState;

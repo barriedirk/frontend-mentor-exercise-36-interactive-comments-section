@@ -1,32 +1,34 @@
+@let status = state.status();
+
+@let showContent = status === CommentStatus.INITIAL || status === CommentStatus.INFORMATION;
+
+@let editContent =
+  status === CommentStatus.UPDATE ||
+  status === CommentStatus.REPLY ||
+  status === CommentStatus.SEND;
+
+@let isSend = status === CommentStatus.SEND;
+
 <article
   class="comment-card ml-auto self-stretch bg-white"
   [ngClass]="{
-    'comment-card__information': !isTextSend && !isTextReply && !isTextUpdate,
-    'comment-card--reply': isReply,
-    'comment-card__form': isTextSend || isTextReply || isTextUpdate,
+    'comment-card__information': showContent,
+    'comment-card__reply': state.status() === CommentStatus.REPLY,
+    'comment-card__update': state.status() === CommentStatus.UPDATE,
+    'comment-card__send': isSend,
   }"
   [attr.aria-labelledby]="'comment-heading' + state.uniqueId()"
 >
-  @if (comment) {
-    <app-comment-header class="comment-card-header" />
+  <app-comment-header class="comment-card-header" />
 
-    <app-comment-content class="comment-card-content" />
+  <app-comment-content class="comment-card-content" />
 
+  @if (!isSend) {
     <app-comment-upvote
       class="comment-card-upvote"
       classes="flex flex-row items-center w-fit md:flex-col md:gap-2"
     />
-
-    <app-comment-shortcut class="comment-card-shortcut flex flex-row items-center gap-2" />
   }
 
-  @if (isTextSend || isTextReply || isTextUpdate) {
-    <app-comment-form
-      [isTextSend]="isTextSend"
-      [isTextReply]="isTextReply"
-      [isTextUpdate]="isTextUpdate"
-      [replyingTo]="replyingTo"
-      class="comment-card__form"
-    />
-  }
+  <app-comment-shortcut class="comment-card-shortcut flex flex-row items-center gap-2" />
 </article>

@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 
-import { CommentCardState } from '../../services/command-card-state';
+import { CommentCardState } from '../../services/comment-card-state';
+
+import { CommentStatusType, CommentStatus } from '@features/comments/services/comment-card-models';
 
 @Component({
   selector: 'app-comment-shortcut',
@@ -10,5 +12,7 @@ import { CommentCardState } from '../../services/command-card-state';
   encapsulation: ViewEncapsulation.None,
 })
 export class CommentShortcut {
+  CommentStatus = CommentStatus;
+
   constructor(public state: CommentCardState) {}
 }

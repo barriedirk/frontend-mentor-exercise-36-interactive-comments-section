@@ -16,6 +16,16 @@
     gap: 16px;
   }
 
+  &__update {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas:
+      'header header header'
+      'content content content'
+      'upvote shortcut shortcut';
+    gap: 16px;
+  }
+
   &-header {
     grid-area: header;
   }
@@ -32,7 +42,7 @@
     grid-area: shortcut;
   }
 
-  &--reply {
+  &__reply {
     width: calc(100% - 16px);
   }
 
@@ -48,7 +58,16 @@
       gap: 24px;
     }
 
-    &--reply {
+    &__update {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-areas:
+        'upvote header header shortcut'
+        'upvote content content content';
+      gap: 16px;
+    }
+
+    &__reply {
       width: calc(100% - 40px);
     }
   }

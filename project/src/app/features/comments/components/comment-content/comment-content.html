@@ -1,7 +1,72 @@
 @let comment = state.comment();
+@let status = state.status();
 
-<div class="text-preset-2 txt-grey-500">
+@let showContent = status === CommentStatus.INITIAL || status === CommentStatus.INFORMATION;
+
+@let editContent =
+  status === CommentStatus.UPDATE ||
+  status === CommentStatus.REPLY ||
+  status === CommentStatus.SEND;
+
+@let isUpdate = status === CommentStatus.UPDATE;
+
+@if (showContent) {
+  <div class="comment-content text-preset-2 txt-grey-500">
     @if (comment) {
-        <p>{{ comment.content }}</p>
+      <p>{{ comment.content }}</p>
     }
-</div>
+  </div>
+}
+
+@if (editContent) {
+  <div
+    class="comment-edit txt-grey-500]"
+    [ngClass]="{
+      'comment-edit__update': isUpdate,
+    }"
+  >
+    <form class="comment-edit__form form" [formGroup]="form">
+      <textarea
+        maxlength="500"
+        class="form-textarea text-preset-2 txt-grey-800 h-[96px] w-full rounded-[8px] border border-gray-200 p-2 hover:border-gray-500 active:border-gray-500"
+        formControlName="content"
+        placeholder="Add a comment..."
+      ></textarea>
+    </form>
+
+    @if (!isUpdate) {
+      <div class="comment-edit__avatar flex h-[48px] items-center">
+        @if (state.currentUser()) {
+          @let user = state.currentUser();
+
+          <img
+            class="h-[32px] w-[32px] md:h-[40px] md:w-[40px]"
+            [src]="user?.image?.png"
+            [alt]="'avatar of ' + user?.username"
+          />
+        }
+      </div>
+    }
+
+    <div class="comment-edit__actions flex h-[48px] flex-row-reverse items-center">
+      <button
+        [disabled]="!form.valid"
+        type="button"
+        class="comment-edit__btn txt-white text-preset-2-medium bg-starstruck flex-center inline-block h-[48px] w-[108px] rounded-[8px] hover:opacity-60 active:opacity-90 disabled:opacity-30"
+        (click)="update()"
+      >
+        @if (status === CommentStatus.SEND) {
+          Send
+        }
+
+        @if (status === CommentStatus.REPLY) {
+          Reply
+        }
+
+        @if (status === CommentStatus.UPDATE) {
+          Update
+        }
+      </button>
+    </div>
+  </div>
+}

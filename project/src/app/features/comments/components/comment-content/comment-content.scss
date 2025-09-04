@@ -1,0 +1,38 @@
+.comment-edit {
+  display: grid;
+  grid-template-areas:
+    'form form'
+    'avatar action';
+  gap: 16px;
+
+  &__update {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'form'
+      'action';
+  }
+
+  &__form {
+    grid-area: form;
+  }
+
+  &__avatar {
+    grid-area: avatar;
+  }
+
+  &__actions {
+    grid-area: action;
+  }
+
+  @media screen and (min-width: 48em) {
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas: 'avatar form action';
+
+    &__update {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        'form'
+        'action';
+    }
+  }
+}
