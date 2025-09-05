@@ -7,7 +7,7 @@
   status === CommentStatus.REPLY ||
   status === CommentStatus.SEND;
 
-@let isSend = status === CommentStatus.SEND;
+@let isSendOrReply = status === CommentStatus.SEND || status === CommentStatus.REPLY;
 
 <article
   class="comment-card ml-auto self-stretch bg-white"
@@ -15,20 +15,24 @@
     'comment-card__information': showContent,
     'comment-card__reply': state.status() === CommentStatus.REPLY,
     'comment-card__update': state.status() === CommentStatus.UPDATE,
-    'comment-card__send': isSend,
+    'comment-card__send': isSendOrReply,
   }"
   [attr.aria-labelledby]="'comment-heading' + state.uniqueId()"
 >
-  <app-comment-header class="comment-card-header" />
+  @if (!isSendOrReply) {
+    <app-comment-header class="comment-card-header" />
+  }
 
   <app-comment-content class="comment-card-content" />
 
-  @if (!isSend) {
+  @if (!isSendOrReply) {
     <app-comment-upvote
       class="comment-card-upvote"
       classes="flex flex-row items-center w-fit md:flex-col md:gap-2"
     />
   }
 
-  <app-comment-shortcut class="comment-card-shortcut flex flex-row items-center gap-2" />
+  @if (!isSendOrReply) {
+    <app-comment-shortcut class="comment-card-shortcut flex flex-row items-center gap-2" />
+  }
 </article>

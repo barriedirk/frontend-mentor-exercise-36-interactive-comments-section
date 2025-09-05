@@ -1,6 +1,13 @@
+@let userComment = state.comment()?.user?.username;
+@let currentUser = state.currentUser()?.username;
+
+@let isYourOwnComment = userComment === currentUser;
+
 <div class="comment-upvote" [ngClass]="hostClasses">
   <button
+    [disabled]="isYourOwnComment"
     class="text-preset-2 txt-purple-600 bg-grey-50 flex-center h-[24px] w-[20px]"
+    [ngClass]="{ 'pointer-events-none': isYourOwnComment }"
     aria-label="Upvote comment"
   >
     <img src="assets/images/icon-plus.svg" alt="" />
@@ -11,7 +18,9 @@
     >{{ state.comment()?.score ?? 0 }}</span
   >
   <button
+    [disabled]="isYourOwnComment"
     class="text-preset-2 txt-purple-600 bg-grey-50 flex-center h-[24px] w-[20px]"
+    [ngClass]="{ 'pointer-events-none': isYourOwnComment }"
     aria-label="Downvote comment"
   >
     <img src="assets/images/icon-minus.svg" alt="" />

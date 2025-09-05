@@ -1,4 +1,10 @@
 @let comment = state.comment();
+
+@let userComment = comment?.user?.username;
+@let currentUser = state.currentUser()?.username;
+
+@let isYourOwnComment = userComment === currentUser;
+
 @if (comment) {
   <header class="comment-card-header flex items-center justify-start gap-[16px]">
     <h2 [attr.id]="'comment-heading' + state.uniqueId()" class="sr-only">
@@ -12,8 +18,8 @@
       [attr.alt]="`Avatar of ` + comment.user.username"
     />
     <span class="username text-preset-2-medium txt-grey-800 flex-center gap-[8px]"
-      >{{ comment.user.username }}
-      @if (state.isCurrentUser()) {
+      >{{ userComment }}
+      @if (isYourOwnComment) {
         <em
           class="txt-white text-preset-3 flex-center p- bg-starstruck rounded-[2px] px-[8px] py-[4px] not-italic"
           >You</em

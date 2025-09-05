@@ -1,5 +1,5 @@
 export interface UserData {
-  currentUser: CurrentUser;
+  currentUser: User;
   comments: Comment[];
 }
 
@@ -8,14 +8,11 @@ export interface User {
   image: Image;
 }
 
+export type CurrentUser = User;
+
 export interface Image {
   png: string;
   webp: string;
-}
-
-export interface CurrentUser {
-  image: Image;
-  username: string;
 }
 
 export interface Comment {

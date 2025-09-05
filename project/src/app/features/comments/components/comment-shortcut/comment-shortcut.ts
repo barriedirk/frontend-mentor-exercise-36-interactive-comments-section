@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 
 import { CommentCardState } from '../../services/comment-card-state';
 
-import { CommentStatusType, CommentStatus } from '@features/comments/services/comment-card-models';
+import { CommentStatus } from '@features/comments/services/comment-card-models';
 
 @Component({
   selector: 'app-comment-shortcut',

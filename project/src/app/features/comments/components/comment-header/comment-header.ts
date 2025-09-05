@@ -9,12 +9,6 @@ import { CommentCardState } from '../../services/comment-card-state';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class CommentHeader implements OnInit {
+export class CommentHeader {
   constructor(public state: CommentCardState) {}
-
-  ngOnInit() {
-    const comment = this.state.comment();
-
-    console.log(comment);
-  }
 }

@@ -1,19 +1,6 @@
 <section
   class="comments align-items flex flex-col items-center justify-center gap-[16px] py-2 md:gap-[24px]"
 >
-  <app-comment-card
-    class="self-stretch px-[17px]"
-    [initialStatus]="CommentStatus.SEND"
-    [currentUser]="store.currentUser()"
-  />
-
-  <app-comment-card
-    class="self-stretch px-[17px]"
-    [initialStatus]="CommentStatus.UPDATE"
-    [currentUser]="store.currentUser()"
-    replyingTo="acme"
-  />
-
   @for (comment of store.comments(); track comment) {
     <app-comment-card
       class="self-stretch px-[17px]"
@@ -29,7 +16,7 @@
         >
           @for (reply of comment.replies; track reply) {
             <app-comment-card
-              class="self-stretch px-[17px]"
+              class="self-stretch pl-[17px]"
               [initialStatus]="CommentStatus.INFORMATION"
               [comment]="reply"
               [isReply]="true"
