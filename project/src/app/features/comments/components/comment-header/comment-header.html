@@ -27,8 +27,10 @@
       }
     </span>
 
-    <time class="created-at txt-grey-500 text-preset-2" [attr.datetime]="comment.createdAt">{{
-      comment.createdAt
-    }}</time>
+    @if (comment.createdAt) {
+      <time class="created-at txt-grey-500 text-preset-2" [attr.datetime]="comment.createdAt">{{
+        comment.createdAt | timeAgo
+      }}</time>
+    }
   </header>
 }

@@ -1,9 +1,10 @@
 <section
   class="comments align-items flex flex-col items-center justify-center gap-[16px] py-2 md:gap-[24px]"
 >
-  @for (comment of store.comments(); track comment) {
+  @for (comment of store.comments(); track comment; let idx1 = $index) {
     <app-comment-card
       class="self-stretch px-[17px]"
+      [idx1]="idx1"
       [initialStatus]="CommentStatus.INFORMATION"
       [comment]="comment"
       [currentUser]="store.currentUser()"
@@ -14,9 +15,11 @@
         <div
           class="comments-replies align-items flex flex-col items-center justify-center gap-[16px] self-stretch md:gap-[24px]"
         >
-          @for (reply of comment.replies; track reply) {
+          @for (reply of comment.replies; track reply; let idx2 = $index) {
             <app-comment-card
               class="self-stretch pl-[17px]"
+              [idx1]="idx1"
+              [idx2]="idx2"
               [initialStatus]="CommentStatus.INFORMATION"
               [comment]="reply"
               [isReply]="true"

@@ -1,7 +1,5 @@
 @let status = state.status();
-@let userComment = state.comment()?.user?.username;
-@let currentUser = state.currentUser()?.username;
-@let isYourOwnComment = userComment === currentUser;
+@let isYourOwnComment = state.isYourOwnComment();
 
 @if (status !== CommentStatus.SEND) {
   @if (isYourOwnComment) {
@@ -9,6 +7,7 @@
       class="text-preset-2-medium txt-pink-400 justifify-center align-center flex items-center gap-1"
       aria-label="Delete comment"
       title="Delete comment"
+      (click)="deleteAction()"
     >
       <img alt="" src="assets/images/icon-delete.svg" height="14" width="11" />
       Delete
@@ -19,6 +18,7 @@
       class="text-preset-2-medium txt-purple-600 justifify-center align-center flex items-center gap-1"
       aria-label="Reply to comment"
       title="Reply to comment"
+      (click)="replyAction()"
     >
       <img alt="" src="assets/images/icon-reply.svg" height="14" width="13" />
       Reply
@@ -29,6 +29,7 @@
       class="text-preset-2-medium txt-purple-600 justifify-center align-center flex items-center gap-1"
       aria-label="Edit comment"
       title="Edit comment"
+      (click)="editAction()"
     >
       <img alt="" src="assets/images/icon-edit.svg" height="14" width="13" />
       Edit

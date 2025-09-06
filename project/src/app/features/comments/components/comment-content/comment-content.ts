@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
 import { CommentCardState } from '../../services/comment-card-state';
 
 import { CommentStatus } from '../../services/comment-card-models';
@@ -17,11 +23,29 @@ import { NgClass } from '@angular/common';
 export class CommentContent {
   CommentStatus = CommentStatus;
 
+  @Output() content = new EventEmitter<string>();
+
   form = new FormGroup({
     content: new FormControl('', [Validators.required, Validators.minLength(1)]),
   });
 
-  constructor(public state: CommentCardState) {}
+  constructor(public state: CommentCardState) {
+    const content = state.comment()?.content ?? '';
 
-  update() {}
+    this.form.patchValue({
+      content: '',
+    });
+  }
+
+  update() {
+    const contentValue = this.form.get('content')!.value;
+
+    this.content.emit(contentValue!);
+
+    if (this.state.status() === CommentStatus.SEND) {
+      this.form.patchValue({
+        content: '',
+      });
+    }
+  }
 }

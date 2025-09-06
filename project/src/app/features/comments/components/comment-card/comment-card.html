@@ -23,7 +23,7 @@
     <app-comment-header class="comment-card-header" />
   }
 
-  <app-comment-content class="comment-card-content" />
+  <app-comment-content (content)="updateContent($event)" class="comment-card-content" />
 
   @if (!isSendOrReply) {
     <app-comment-upvote
@@ -33,6 +33,11 @@
   }
 
   @if (!isSendOrReply) {
-    <app-comment-shortcut class="comment-card-shortcut flex flex-row items-center gap-2" />
+    <app-comment-shortcut
+      (delete)="deleteAction()"
+      (reply)="replyAction()"
+      (edit)="editAction()"
+      class="comment-card-shortcut flex flex-row items-center gap-2"
+    />
   }
 </article>

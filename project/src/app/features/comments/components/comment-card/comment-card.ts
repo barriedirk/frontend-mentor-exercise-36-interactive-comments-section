@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnInit } from '@angular/core';
 
 import { NgClass } from '@angular/common';
 
@@ -11,6 +11,7 @@ import { CommentShortcut } from '../comment-shortcut/comment-shortcut';
 import { CommentCardState } from '../../services/comment-card-state';
 
 import { CommentStatusType, CommentStatus } from '@features/comments/services/comment-card-models';
+import { GlobalStore } from '@app/state';
 
 @Component({
   selector: 'app-comment-card',
@@ -22,6 +23,11 @@ import { CommentStatusType, CommentStatus } from '@features/comments/services/co
 })
 export class CommentCard implements OnInit {
   CommentStatus = CommentStatus;
+
+  store = inject(GlobalStore);
+
+  @Input() idx1?: number;
+  @Input() idx2?: number;
 
   @Input() comment?: Comment;
   @Input() currentUser?: CurrentUser;
@@ -44,7 +50,38 @@ export class CommentCard implements OnInit {
     }
 
     if (this.comment?.user?.username === this.currentUser?.username) {
-      this.state.isCurrentUser.set(true);
+      this.state.isYourOwnComment.set(true);
     }
   }
+
+  updateContent(content: string) {
+    const status = this.state.status()!;
+
+    const values = {
+      status,
+      idx1: this.idx1,
+      idx2: this.idx2,
+      id: this.comment?.id,
+      content,
+      user: this.state.currentUser(),
+    };
+
+    this.store.updateComment(values);
+  }
+
+  deleteAction() {
+    if (this.comment?.id && this.idx1) {
+      const values = {
+        idx1: this.idx1!,
+        idx2: this.idx2 ?? -1,
+        id: this.comment!.id,
+      };
+
+      this.store.deleteComment(values);
+    }
+  }
+
+  replyAction() {}
+
+  editAction() {}
 }

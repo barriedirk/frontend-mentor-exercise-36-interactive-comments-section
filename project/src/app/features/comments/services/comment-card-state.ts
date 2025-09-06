@@ -13,7 +13,7 @@ export class CommentCardState {
   comment: WritableSignal<Comment | undefined>;
   currentUser: WritableSignal<CurrentUser | undefined>;
   replyingTo: WritableSignal<string | undefined>;
-  isCurrentUser: WritableSignal<boolean>;
+  isYourOwnComment: WritableSignal<boolean>;
 
   constructor() {
     this.uniqueId = signal<string>(uuidv4());
@@ -21,6 +21,6 @@ export class CommentCardState {
     this.comment = signal<Comment | undefined>(undefined);
     this.currentUser = signal<CurrentUser | undefined>(undefined);
     this.replyingTo = signal<string | undefined>('');
-    this.isCurrentUser = signal<boolean>(true);
+    this.isYourOwnComment = signal<boolean>(false);
   }
 }

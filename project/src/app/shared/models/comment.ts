@@ -1,4 +1,5 @@
 export interface UserData {
+  lastId: number;
   currentUser: User;
   comments: Comment[];
 }

@@ -1,6 +1,7 @@
 import { UserData } from '@app/shared/models/comment';
 
 export const initialData: UserData = {
+  lastId: 100,
   currentUser: {
     image: {
       png: '/assets/images/avatars/image-juliusomo.png',
@@ -13,7 +14,7 @@ export const initialData: UserData = {
       id: 1,
       content:
         "Impressive! Though it seems the drag feature could be improved. But overall it looks incredible. You've nailed the design and the responsiveness at various breakpoints works really well.",
-      createdAt: '1 month ago',
+      createdAt: '2025-08-06T00:00:00.000Z', // 30 days ago
       score: 12,
       user: {
         image: {
@@ -28,7 +29,7 @@ export const initialData: UserData = {
       id: 2,
       content:
         "Woah, your project looks awesome! How long have you been coding for? I'm still new, but think I want to dive into React as well soon. Perhaps you can give me an insight on where I can learn React? Thanks!",
-      createdAt: '2 weeks ago',
+      createdAt: '2025-08-22T00:00:00.000Z', // 14 days ago
       score: 5,
       user: {
         image: {
@@ -42,7 +43,7 @@ export const initialData: UserData = {
           id: 3,
           content:
             "If you're still new, I'd recommend focusing on the fundamentals of HTML, CSS, and JS before considering React. It's very tempting to jump ahead but lay a solid foundation first.",
-          createdAt: '1 week ago',
+          createdAt: '2025-08-29T00:00:00.000Z', // 7 days ago
           score: 4,
           replyingTo: 'maxblagun',
           user: {
@@ -57,7 +58,7 @@ export const initialData: UserData = {
           id: 4,
           content:
             "I couldn't agree more with this. Everything moves so fast and it always seems like everyone knows the newest library/framework. But the fundamentals are what stay constant.",
-          createdAt: '2 days ago',
+          createdAt: '2025-09-03T00:00:00.000Z', // 2 days ago
           score: 2,
           replyingTo: 'ramsesmiron',
           user: {

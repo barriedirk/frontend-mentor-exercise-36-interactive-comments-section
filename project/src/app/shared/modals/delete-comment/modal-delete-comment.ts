@@ -4,7 +4,6 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angul
   selector: 'app-modal-delete-comment',
   imports: [],
   templateUrl: './modal-delete-comment.html',
-  styleUrl: './modal-delete-comment.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ModalDeleteComment {
