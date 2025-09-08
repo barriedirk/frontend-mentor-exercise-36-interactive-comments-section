@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
 import { NgClass } from '@angular/common';
 
 import { CommentCardState } from '../../services/comment-card-state';
@@ -12,6 +19,9 @@ import { CommentCardState } from '../../services/comment-card-state';
   encapsulation: ViewEncapsulation.None,
 })
 export class CommentUpvote {
+  @Input() wasUpvoted?: number;
+  @Output() updateVote = new EventEmitter<number>();
+
   hostClasses = 'comment-upvote rounded-[10px] p-[8px] bg-grey-50';
 
   @Input()
@@ -20,4 +30,8 @@ export class CommentUpvote {
   }
 
   constructor(public state: CommentCardState) {}
+
+  upvote(vote: number) {
+    this.updateVote.emit(vote);
+  }
 }

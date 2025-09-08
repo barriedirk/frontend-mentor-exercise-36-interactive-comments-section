@@ -1,7 +1,7 @@
 import { computed, inject } from '@angular/core';
 import { signalStore, withState, withMethods, patchState } from '@ngrx/signals';
 
-import { UserData, CurrentUser, Comment, User } from '@app/shared/models/comment';
+import { CurrentUser, Comment, User } from '@app/shared/models/comment';
 
 import { USER_DATA_STATE, emptyComments, emptyCurrentUser, updateStorage } from './comments-state';
 import { CommentStatus } from '@features/comments/services/comment-card-models';
@@ -24,13 +24,33 @@ export const GlobalStore = signalStore(
       updateStorage(comments, 'comments');
       patchState(store, { comments });
     },
-    currentUser: computed<CurrentUser>(() => store.currentUser()),
-    comments: computed<Comment[]>(() => store.comments()),
-    deleteComment({ idx1, idx2, id }: DeleteComment) {
+    getUpvote: (id: string | number): number | undefined => {
+      return store.upvote()[id] ?? undefined;
+    },
+    setUpvote({ idx1, idx2, id, score, formerVote, vote }: UpvoteComment) {
+      const upvote = structuredClone(store.upvote());
       const comments = structuredClone(store.comments());
 
-      // @todo, remove console
-      console.log({ idx1, idx2, id });
+      score += vote - formerVote;
+
+      if (comments[idx1!]) {
+        if (idx2 === -1 && comments[idx1!].id === id) {
+          comments[idx1!].score = score;
+        } else if (comments[idx1!].replies?.[idx2!]?.id === id) {
+          comments[idx1!].replies![idx2!].score = score;
+        }
+      }
+
+      upvote[id] = vote;
+
+      debugger;
+
+      patchState(store, { upvote, comments });
+    },
+    loggedInUser: computed<CurrentUser>(() => store.currentUser()),
+    postComments: computed<Comment[]>(() => store.comments()),
+    deleteComment({ idx1, idx2, id }: DeleteComment) {
+      const comments = structuredClone(store.comments());
 
       if (comments[idx1]) {
         if (idx2 === -1 && comments[idx1].id === id) {
@@ -44,11 +64,23 @@ export const GlobalStore = signalStore(
       // updateStorage(comments, 'comments');
       patchState(store, { comments });
     },
+    updateStatus({ status, idx1, idx2, id }: UpdateStatus) {
+      const comments = structuredClone(store.comments());
+
+      if (comments[idx1!]) {
+        if (idx2 === -1 && comments[idx1!].id === id) {
+          comments[idx1!].status = status;
+        } else if (comments[idx1!].replies?.[idx2!]?.id === id) {
+          comments[idx1!].replies![idx2!].status = status;
+        }
+      }
+
+      patchState(store, { comments });
+    },
     updateComment({ status, idx1, idx2, id, content, user }: UpdateComment) {
       const comments = structuredClone(store.comments());
       let lastId = store.lastId();
       let comment: Comment;
-      debugger;
 
       if (status === CommentStatus.SEND) {
         lastId++;
@@ -61,9 +93,68 @@ export const GlobalStore = signalStore(
           replies: [],
           replyingTo: '',
           user: user!,
+          status: CommentStatus.INFORMATION,
         };
 
         comments.push(comment);
+      }
+
+      if (comments[idx1!] && (status === CommentStatus.REPLY || status === CommentStatus.UPDATE)) {
+        if (idx2 === -1 && comments[idx1!].id === id) {
+          comments[idx1!].content = content!;
+          comments[idx1!].status = CommentStatus.INFORMATION;
+        } else if (comments[idx1!].replies?.[idx2!]?.id === id) {
+          comments[idx1!].replies![idx2!].content = content;
+          comments[idx1!].replies![idx2!].status = CommentStatus.INFORMATION;
+        }
+      }
+
+      // @todo, for now, no update the localstorage
+      // updateStorage(comments, 'comments');
+      patchState(store, { lastId, comments });
+    },
+    replyComment({ idx1, idx2, id, user }: ReplyComment) {
+      const comments = structuredClone(store.comments());
+      let lastId = store.lastId();
+      let comment: Comment;
+
+      comment = {
+        id: ++lastId,
+        content: '',
+        createdAt: formatISO(new Date()),
+        score: 0,
+        replies: [],
+        replyingTo: '',
+        user: user!,
+      };
+
+      // @todo, remove console
+      console.log({ idx1, idx2, id, comment });
+
+      if (comments[idx1]) {
+        if (idx2 === -1 && comments[idx1].id === id) {
+          const replies = comments[idx1].replies ?? [];
+          const replyingTo = comments[idx1].user.username;
+
+          comment.replyingTo = replyingTo;
+          comment.content = `@${replyingTo} `;
+          comment.content = `@${replyingTo} `;
+          comment.status = CommentStatus.REPLY;
+
+          replies.push(comment);
+
+          comments[idx1].replies = replies;
+        } else if (comments[idx1].replies?.[idx2]?.id === id) {
+          const replies = comments[idx1].replies;
+          const replyingTo = comments[idx1].replies[idx2].user.username;
+
+          comment.replyingTo = replyingTo;
+          comment.content = `@${replyingTo} `;
+          comment.status = CommentStatus.REPLY;
+
+          replies.splice(idx2, 0, comment);
+          comments[idx1].replies = replies;
+        }
       }
 
       // @todo, for now, no update the localstorage
@@ -72,6 +163,13 @@ export const GlobalStore = signalStore(
     },
   }))
 );
+
+export interface UpdateStatus {
+  status: string;
+  idx1: number;
+  idx2: number;
+  id: number;
+}
 
 export interface UpdateComment {
   status: string;
@@ -86,4 +184,20 @@ export interface DeleteComment {
   idx1: number;
   idx2: number;
   id: number;
+}
+
+export interface ReplyComment {
+  idx1: number;
+  idx2: number;
+  id: number;
+  user?: User;
+}
+
+export interface UpvoteComment {
+  idx1: number;
+  idx2: number;
+  id: number;
+  score: number;
+  formerVote: number;
+  vote: number;
 }

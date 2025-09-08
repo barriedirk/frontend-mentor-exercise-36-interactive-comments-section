@@ -27,6 +27,7 @@
   >
     <form class="comment-edit__form form" [formGroup]="form">
       <textarea
+        appAutoFocus
         maxlength="500"
         class="form-textarea text-preset-2 txt-grey-800 h-[96px] w-full rounded-[8px] border border-gray-200 p-2 hover:border-gray-500 active:border-gray-500"
         formControlName="content"

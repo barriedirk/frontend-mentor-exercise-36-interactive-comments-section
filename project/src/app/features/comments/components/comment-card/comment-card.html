@@ -1,12 +1,5 @@
 @let status = state.status();
-
 @let showContent = status === CommentStatus.INITIAL || status === CommentStatus.INFORMATION;
-
-@let editContent =
-  status === CommentStatus.UPDATE ||
-  status === CommentStatus.REPLY ||
-  status === CommentStatus.SEND;
-
 @let isSendOrReply = status === CommentStatus.SEND || status === CommentStatus.REPLY;
 
 <article
@@ -15,7 +8,7 @@
     'comment-card__information': showContent,
     'comment-card__reply': state.status() === CommentStatus.REPLY,
     'comment-card__update': state.status() === CommentStatus.UPDATE,
-    'comment-card__send': isSendOrReply,
+    'comment-card__send': state.status() === CommentStatus.SEND,
   }"
   [attr.aria-labelledby]="'comment-heading' + state.uniqueId()"
 >
@@ -27,6 +20,8 @@
 
   @if (!isSendOrReply) {
     <app-comment-upvote
+      [wasUpvoted]="store.getUpvote(id)"
+      (updateVote)="upvote($event)"
       class="comment-card-upvote"
       classes="flex flex-row items-center w-fit md:flex-col md:gap-2"
     />

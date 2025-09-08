@@ -1,6 +1,7 @@
 import { UserData } from '@app/shared/models/comment';
 
 export const initialData: UserData = {
+  upvote: {},
   lastId: 100,
   currentUser: {
     image: {

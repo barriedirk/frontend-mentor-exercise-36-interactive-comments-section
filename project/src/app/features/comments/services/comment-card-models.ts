@@ -5,6 +5,7 @@ export const CommentStatus = {
   REPLY: 'REPLY',
   DELETE: 'DELETE',
   SEND: 'SEND',
+  UPVOTE: 'UPVOTE',
 };
 
 export type CommentStatusType = (typeof CommentStatus)[keyof typeof CommentStatus];

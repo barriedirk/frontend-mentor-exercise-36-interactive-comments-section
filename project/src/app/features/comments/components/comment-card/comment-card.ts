@@ -35,13 +35,18 @@ export class CommentCard implements OnInit {
   @Input() isReply: boolean = false;
   @Input() replyingTo: string = '';
 
+  id: number = 0;
+
   constructor(public state: CommentCardState) {}
 
   ngOnInit() {
-    this.state.status.set(this.initialStatus ?? CommentStatus.INFORMATION);
+    const status = this.initialStatus || this.comment?.status || CommentStatus.INFORMATION;
+
+    this.state.status.set(status);
     this.state.replyingTo.set(this.replyingTo ?? '');
 
     if (this.comment) {
+      this.id = this.comment.id;
       this.state.comment.set(this.comment);
     }
 
@@ -58,30 +63,74 @@ export class CommentCard implements OnInit {
     const status = this.state.status()!;
 
     const values = {
-      status,
       idx1: this.idx1,
       idx2: this.idx2,
-      id: this.comment?.id,
+      id: this.id,
       content,
       user: this.state.currentUser(),
+      status,
     };
 
     this.store.updateComment(values);
   }
 
   deleteAction() {
-    if (this.comment?.id && this.idx1) {
+    if (this.id && this.idx1 !== -1) {
       const values = {
         idx1: this.idx1!,
         idx2: this.idx2 ?? -1,
-        id: this.comment!.id,
+        id: this.id,
       };
 
       this.store.deleteComment(values);
     }
   }
 
-  replyAction() {}
+  editAction() {
+    if (this.id && this.idx1 !== -1) {
+      const values = {
+        idx1: this.idx1!,
+        idx2: this.idx2 ?? -1,
+        id: this.id,
+        status: CommentStatus.UPDATE,
+      };
 
-  editAction() {}
+      this.store.updateStatus(values);
+    }
+  }
+
+  replyAction() {
+    if (this.comment?.id && this.idx1 !== -1) {
+      const values = {
+        idx1: this.idx1!,
+        idx2: this.idx2 ?? -1,
+        id: this.comment!.id,
+        user: this.state.currentUser(),
+      };
+
+      this.store.replyComment(values);
+    }
+  }
+
+  upvote(vote: number) {
+    if (this.comment?.id && this.idx1 !== -1) {
+      // this.store.updateStatus({
+      //   idx1: this.idx1!,
+      //   idx2: this.idx2 ?? -1,
+      //   id: this.id,
+      //   status: CommentStatus.UPDATE,
+      // });
+
+      const values = {
+        idx1: this.idx1!,
+        idx2: this.idx2 ?? -1,
+        id: this.id,
+        score: this.comment?.score ?? 0,
+        formerVote: this.store.getUpvote(this.id) ?? 0,
+        vote,
+      };
+
+      this.store.setUpvote(values);
+    }
+  }
 }

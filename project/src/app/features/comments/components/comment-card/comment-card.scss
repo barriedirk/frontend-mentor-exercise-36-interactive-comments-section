@@ -6,6 +6,12 @@
 
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
 
+  &__reply {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas: 'content';
+  }
+
   &__information {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -42,10 +48,6 @@
     grid-area: shortcut;
   }
 
-  &__reply {
-    width: calc(100% - 16px);
-  }
-
   @media screen and (min-width: 48em) {
     max-width: 684px;
     margin-left: auto;
@@ -65,10 +67,6 @@
         'upvote header header shortcut'
         'upvote content content content';
       gap: 16px;
-    }
-
-    &__reply {
-      width: calc(100% - 40px);
     }
   }
 }
