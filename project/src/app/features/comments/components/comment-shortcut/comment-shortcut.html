@@ -1,37 +1,49 @@
+@let id = state.comment()?.id;
 @let status = state.status();
 @let isYourOwnComment = state.isYourOwnComment();
 
 @if (status !== CommentStatus.SEND) {
   @if (isYourOwnComment) {
     <button
-      class="text-preset-2-medium txt-pink-400 justifify-center align-center flex items-center gap-1"
+      class="text-preset-2-medium txt-pink-200 hover:txt-pink-400 active:txt-pink-400 focus-visible:txt-pink-400 justifify-center align-center flex items-center gap-1.5"
       aria-label="Delete comment"
       title="Delete comment"
       (click)="deleteAction()"
+      [attr.data-cy]="'Delete comment id:' + id"
     >
-      <img alt="" src="assets/images/icon-delete.svg" height="14" width="11" />
+      <svg width="11px" height="14px" aria-hidden="true">
+        <use href="assets/images/icon-delete.svg#delete" />
+      </svg>
+
       Delete
     </button>
   }
   @if (!isYourOwnComment) {
     <button
-      class="text-preset-2-medium txt-purple-600 justifify-center align-center flex items-center gap-1"
+      class="text-preset-2-medium txt-purple-200 hover:txt-purple-600 active:txt-purple-600 focus-visible:txt-purple-600 justifify-center align-center flex items-center gap-1.5"
       aria-label="Reply to comment"
       title="Reply to comment"
       (click)="replyAction()"
+      [attr.data-cy]="'Reply comment id:' + id"
     >
-      <img alt="" src="assets/images/icon-reply.svg" height="14" width="13" />
+      <svg width="14px" height="13px" aria-hidden="true">
+        <use href="assets/images/icon-reply.svg#reply" />
+      </svg>
       Reply
     </button>
   }
   @if (isYourOwnComment) {
     <button
-      class="text-preset-2-medium txt-purple-600 justifify-center align-center flex items-center gap-1"
+      class="text-preset-2-medium txt-purple-200 hover:txt-purple-600 active:txt-purple-600 focus-visible:txt-purple-600 justifify-center align-center flex items-center gap-1.5"
       aria-label="Edit comment"
       title="Edit comment"
       (click)="editAction()"
+      [attr.data-cy]="'Edit comment id:' + id"
     >
-      <img alt="" src="assets/images/icon-edit.svg" height="14" width="13" />
+      <svg width="14px" height="14px" aria-hidden="true">
+        <use href="assets/images/icon-edit.svg#edit" />
+      </svg>
+
       Edit
     </button>
   }

@@ -9,12 +9,14 @@
   &__reply {
     display: grid;
     grid-template-columns: 1fr;
+    grid-template-rows: auto;
     grid-template-areas: 'content';
   }
 
   &__information {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto 1fr auto;
     grid-template-areas:
       'header header header'
       'content content content'
@@ -25,6 +27,7 @@
   &__update {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto 1fr auto;
     grid-template-areas:
       'header header header'
       'content content content'
@@ -46,6 +49,7 @@
 
   &-shortcut {
     grid-area: shortcut;
+    justify-self: end;
   }
 
   @media screen and (min-width: 48em) {
@@ -54,6 +58,7 @@
 
     &__information {
       grid-template-columns: auto 1fr 1fr;
+      grid-template-rows: auto 1fr;
       grid-template-areas:
         'upvote header header shortcut'
         'upvote content content content';

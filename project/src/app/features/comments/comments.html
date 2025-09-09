@@ -3,7 +3,7 @@
 >
   @for (
     comment of store.comments();
-    track `${comment.id}-${comment.status ?? ''}`;
+    track `${comment.id}-${comment.status ?? ''}-${comment.score}`;
     let idx1 = $index
   ) {
     <app-comment-card
@@ -20,7 +20,7 @@
         >
           @for (
             reply of comment.replies;
-            track `${reply.id}-${reply.status ?? ''}`;
+            track `${reply.id}-${reply.status ?? ''}-${reply.score}`;
             let idx2 = $index
           ) {
             <app-comment-card

@@ -43,8 +43,9 @@ export const GlobalStore = signalStore(
 
       upvote[id] = vote;
 
-      debugger;
-
+      // @todo, for now, no update the localstorage
+      // updateStorage(comments, 'comments');
+      // updateStorage(upvote, 'upvote');
       patchState(store, { upvote, comments });
     },
     loggedInUser: computed<CurrentUser>(() => store.currentUser()),
@@ -75,6 +76,8 @@ export const GlobalStore = signalStore(
         }
       }
 
+      // @todo, for now, no update the localstorage
+      // updateStorage(comments, 'comments');
       patchState(store, { comments });
     },
     updateComment({ status, idx1, idx2, id, content, user }: UpdateComment) {
@@ -118,6 +121,23 @@ export const GlobalStore = signalStore(
       let lastId = store.lastId();
       let comment: Comment;
 
+      console.log('1', { comments });
+
+      // remove any previous reply
+      for (let i = comments.length - 1; i >= 0; i--) {
+        if (comments[i].status === CommentStatus.REPLY) {
+          comments.splice(i, 1);
+        } else if (comments[i].replies?.length) {
+          for (let j = comments[i].replies!.length - 1; j >= 0; j--) {
+            if (comments[i].replies![j].status === CommentStatus.REPLY) {
+              comments[i].replies!.splice(j, 1);
+            }
+          }
+        }
+      }
+
+      console.log('2', { comments });
+
       comment = {
         id: ++lastId,
         content: '',
@@ -127,9 +147,6 @@ export const GlobalStore = signalStore(
         replyingTo: '',
         user: user!,
       };
-
-      // @todo, remove console
-      console.log({ idx1, idx2, id, comment });
 
       if (comments[idx1]) {
         if (idx2 === -1 && comments[idx1].id === id) {

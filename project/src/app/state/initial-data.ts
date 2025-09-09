@@ -15,7 +15,7 @@ export const initialData: UserData = {
       id: 1,
       content:
         "Impressive! Though it seems the drag feature could be improved. But overall it looks incredible. You've nailed the design and the responsiveness at various breakpoints works really well.",
-      createdAt: '2025-08-06T00:00:00.000Z', // 30 days ago
+      createdAt: '2025-08-06T00:00:00.000', // 30 days ago
       score: 12,
       user: {
         image: {

@@ -32,6 +32,7 @@ export class CommentUpvote {
   constructor(public state: CommentCardState) {}
 
   upvote(vote: number) {
-    this.updateVote.emit(vote);
+    if (this.wasUpvoted === vote) this.updateVote.emit(0);
+    else this.updateVote.emit(vote);
   }
 }

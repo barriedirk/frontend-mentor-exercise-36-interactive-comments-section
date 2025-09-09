@@ -1,3 +1,4 @@
+@let id = state.comment()?.id;
 @let userComment = state.comment()?.user?.username;
 @let currentUser = state.currentUser()?.username;
 
@@ -5,26 +6,34 @@
 
 <div class="comment-upvote" [ngClass]="hostClasses">
   <button
-    [disabled]="isYourOwnComment || wasUpvoted === 1"
-    class="text-preset-2 txt-purple-600 bg-grey-50 flex-center h-[24px] w-[20px]"
-    [ngClass]="{ 'pointer-events-none': isYourOwnComment }"
-    aria-label="Upvote comment"
+    [disabled]="isYourOwnComment"
+    class="text-preset-2 txt-purple-200 hover:txt-purple-600 active:txt-purple-600 focus-visible:txt-purple-600 bg-grey-50 flex-center h-[24px] w-[20px]"
+    [ngClass]="{ 'pointer-events-none': isYourOwnComment, 'txt-starstruck': wasUpvoted === 1 }"
     (click)="upvote(1)"
+    [aria-label]="'Upvote comment for ' + userComment"
+    [attr.data-cy]="'Upvote plus id:' + id"
   >
-    <img src="assets/images/icon-plus.svg" alt="" />
+    <svg width="11px" height="11px" aria-hidden="true">
+      <use href="assets/images/icon-plus.svg#plus" />
+    </svg>
   </button>
   <span
     class="text-preset-2 txt-purple-600 bg-grey-50 flex-center h-[24px] w-[30px]"
     aria-live="polite"
+    [aria-label]="'Score of ' + userComment"
+    [attr.data-cy]="'Score id:' + id"
     >{{ state.comment()?.score ?? 0 }}</span
   >
   <button
-    [disabled]="isYourOwnComment || wasUpvoted === -1"
-    class="text-preset-2 txt-purple-600 bg-grey-50 flex-center h-[24px] w-[20px]"
-    [ngClass]="{ 'pointer-events-none': isYourOwnComment }"
-    aria-label="Downvote comment"
+    [disabled]="isYourOwnComment"
+    class="text-preset-2 txt-purple-200 hover:txt-purple-600 active:txt-purple-600 focus-visible:txt-purple-600 bg-grey-50 flex-center h-[24px] w-[20px]"
+    [ngClass]="{ 'pointer-events-none': isYourOwnComment, 'txt-starstruck': wasUpvoted === -1 }"
     (click)="upvote(-1)"
+    [aria-label]="'Downvote comment for ' + userComment"
+    [attr.data-cy]="'Downvote plus id:' + id"
   >
-    <img src="assets/images/icon-minus.svg" alt="" />
+    <svg width="11px" height="3px" aria-hidden="true">
+      <use href="assets/images/icon-minus.svg#minus" />
+    </svg>
   </button>
 </div>
