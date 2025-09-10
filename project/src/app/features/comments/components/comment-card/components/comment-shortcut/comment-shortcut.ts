@@ -9,7 +9,7 @@ import {
 
 import { CommentCardState } from '../../services/comment-card-state';
 
-import { CommentStatus } from '@features/comments/services/comment-card-models';
+import { CommentStatus } from '@features/comments/components/comment-card/services/comment-card-models';
 import { ModalDeleteCommentService } from '@modals/delete-comment/delete-comment-service';
 
 @Component({

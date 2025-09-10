@@ -3,7 +3,9 @@
 @let isSendOrReply = status === CommentStatus.SEND || status === CommentStatus.REPLY;
 
 <article
+  role="region"
   class="comment-card ml-auto self-stretch bg-white"
+  [attr.aria-label]="'Comment by ' + state.comment()?.user?.username"
   [ngClass]="{
     'comment-card__information': showContent,
     'comment-card__reply': state.status() === CommentStatus.REPLY,
@@ -16,7 +18,11 @@
     <app-comment-header class="comment-card-header" />
   }
 
-  <app-comment-content (content)="updateContent($event)" class="comment-card-content" />
+  <app-comment-content
+    (content)="updateContent($event)"
+    class="comment-card-content"
+    (cancel)="cancelEdit()"
+  />
 
   @if (!isSendOrReply) {
     <app-comment-upvote

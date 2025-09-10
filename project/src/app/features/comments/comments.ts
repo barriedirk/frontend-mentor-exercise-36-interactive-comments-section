@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
 import { CommentCard } from './components/comment-card/comment-card';
 
-import { CommentStatus } from '@features/comments/services/comment-card-models';
+import { CommentStatus } from '@features/comments/components/comment-card/services/comment-card-models';
 
 import { GlobalStore } from '@app/state';
 

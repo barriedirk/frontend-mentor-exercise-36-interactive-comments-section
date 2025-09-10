@@ -4,7 +4,7 @@
 
 @let isYourOwnComment = userComment === currentUser;
 
-<div class="comment-upvote" [ngClass]="hostClasses">
+<div class="comment-upvote" [ngClass]="hostClasses" role="group" aria-label="Upvote buttons">
   <button
     [disabled]="isYourOwnComment"
     class="text-preset-2 txt-purple-200 hover:txt-purple-600 active:txt-purple-600 focus-visible:txt-purple-600 bg-grey-50 flex-center h-[24px] w-[20px]"
@@ -19,6 +19,7 @@
   </button>
   <span
     class="text-preset-2 txt-purple-600 bg-grey-50 flex-center h-[24px] w-[30px]"
+    role="status"
     aria-live="polite"
     [aria-label]="'Score of ' + userComment"
     [attr.data-cy]="'Score id:' + id"

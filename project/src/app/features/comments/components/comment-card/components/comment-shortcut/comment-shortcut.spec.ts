@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CommentActions } from './comment-shortcut';
+import { CommentShortcut } from './comment-shortcut';
 
 describe('CommentActions', () => {
-  let component: CommentActions;
-  let fixture: ComponentFixture<CommentActions>;
+  let component: CommentShortcut;
+  let fixture: ComponentFixture<CommentShortcut>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CommentActions],
+      imports: [CommentShortcut],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CommentActions);
+    fixture = TestBed.createComponent(CommentShortcut);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

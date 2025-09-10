@@ -7,3 +7,9 @@ textarea::placeholder {
   line-height: 150%;
   letter-spacing: 0px;
 }
+
+button:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #4f46e5; // or a high contrast color
+  outline-offset: 2px;
+}

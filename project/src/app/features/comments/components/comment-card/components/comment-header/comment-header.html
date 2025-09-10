@@ -6,7 +6,7 @@
 @let isYourOwnComment = userComment === currentUser;
 
 @if (comment) {
-  <header class="comment-card-header flex items-center justify-start gap-[16px]">
+  <header class="comment-card-header flex items-center justify-start gap-[10px]">
     <h2 [attr.id]="'comment-heading' + state.uniqueId()" class="sr-only">
       Comment by {{ comment.user.username }}
     </h2>

@@ -13,6 +13,7 @@ import { CommentStatus } from '../../services/comment-card-models';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { AutoFocus } from '@app/shared/directives/auto-focus';
+import { isMacPlatform } from '@app/shared/utils/helper';
 
 @Component({
   selector: 'app-comment-content',
@@ -24,8 +25,10 @@ import { AutoFocus } from '@app/shared/directives/auto-focus';
 })
 export class CommentContent implements OnInit {
   CommentStatus = CommentStatus;
+  id: number = 0;
 
   @Output() content = new EventEmitter<string>();
+  @Output() cancel = new EventEmitter<boolean>();
 
   form = new FormGroup({
     content: new FormControl('', [Validators.required, Validators.minLength(1)]),
@@ -64,5 +67,37 @@ export class CommentContent implements OnInit {
     }
 
     this.content.emit(contentValue!);
+  }
+
+  private cancelEdit() {
+    if (this.state.status() === CommentStatus.SEND) {
+      this.form.patchValue({
+        content: '',
+      });
+    }
+
+    if (
+      this.state.status() === CommentStatus.REPLY ||
+      this.state.status() === CommentStatus.UPDATE
+    ) {
+      this.cancel.emit();
+    }
+  }
+
+  contentKeyDown(event: KeyboardEvent) {
+    const isMac = isMacPlatform();
+    const ctrlOrCmd = isMac ? event.metaKey : event.ctrlKey;
+
+    if (ctrlOrCmd && event.key === 'Enter') {
+      event.preventDefault();
+
+      if (this.form.valid) {
+        this.update();
+      }
+    }
+
+    if (event.key === 'Escape') {
+      this.cancelEdit();
+    }
   }
 }

@@ -1,3 +1,4 @@
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AutoFocus } from './auto-focus';
@@ -8,7 +9,7 @@ import { By } from '@angular/platform-browser';
 })
 class TestComponent {}
 
-describe('AutoFocus Directive (Karma + Jasmine)', () => {
+describe('AutoFocus Directive', () => {
   let fixture: ComponentFixture<TestComponent>;
 
   beforeEach(async () => {
@@ -27,12 +28,10 @@ describe('AutoFocus Directive (Karma + Jasmine)', () => {
     expect(directiveInstance).toBeTruthy();
   });
 
-  it('should focus the input element after view init', (done) => {
+  it('should focus the input element after view init', async () => {
     const inputEl = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
 
-    setTimeout(() => {
-      expect(document.activeElement).toBe(inputEl);
-      done();
-    }, 0);
+    await new Promise((resolve) => setTimeout(resolve, 0)); // let setTimeout run
+    expect(document.activeElement).toBe(inputEl);
   });
 });

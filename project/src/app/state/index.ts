@@ -4,7 +4,7 @@ import { signalStore, withState, withMethods, patchState } from '@ngrx/signals';
 import { CurrentUser, Comment, User } from '@app/shared/models/comment';
 
 import { USER_DATA_STATE, emptyComments, emptyCurrentUser, updateStorage } from './comments-state';
-import { CommentStatus } from '@features/comments/services/comment-card-models';
+import { CommentStatus } from '@features/comments/components/comment-card/services/comment-card-models';
 
 import { formatISO } from 'date-fns';
 
@@ -121,8 +121,6 @@ export const GlobalStore = signalStore(
       let lastId = store.lastId();
       let comment: Comment;
 
-      console.log('1', { comments });
-
       // remove any previous reply
       for (let i = comments.length - 1; i >= 0; i--) {
         if (comments[i].status === CommentStatus.REPLY) {
@@ -135,8 +133,6 @@ export const GlobalStore = signalStore(
           }
         }
       }
-
-      console.log('2', { comments });
 
       comment = {
         id: ++lastId,
@@ -169,7 +165,7 @@ export const GlobalStore = signalStore(
           comment.content = `@${replyingTo} `;
           comment.status = CommentStatus.REPLY;
 
-          replies.splice(idx2, 0, comment);
+          replies.splice(idx2 + 1, 0, comment);
           comments[idx1].replies = replies;
         }
       }

@@ -3,14 +3,17 @@ import { ChangeDetectionStrategy, Component, inject, Input, OnInit } from '@angu
 import { NgClass } from '@angular/common';
 
 import { Comment, CurrentUser } from '@models/comment';
-import { CommentHeader } from '../comment-header/comment-header';
-import { CommentContent } from '../comment-content/comment-content';
-import { CommentUpvote } from '../comment-upvote/comment-upvote';
-import { CommentShortcut } from '../comment-shortcut/comment-shortcut';
+import { CommentHeader } from './components/comment-header/comment-header';
+import { CommentContent } from './components/comment-content/comment-content';
+import { CommentUpvote } from './components/comment-upvote/comment-upvote';
+import { CommentShortcut } from './components/comment-shortcut/comment-shortcut';
 
-import { CommentCardState } from '../../services/comment-card-state';
+import { CommentCardState } from './services/comment-card-state';
 
-import { CommentStatusType, CommentStatus } from '@features/comments/services/comment-card-models';
+import {
+  CommentStatusType,
+  CommentStatus,
+} from '@features/comments/components/comment-card/services/comment-card-models';
 import { GlobalStore } from '@app/state';
 
 @Component({
@@ -114,13 +117,6 @@ export class CommentCard implements OnInit {
 
   upvote(vote: number) {
     if (this.comment?.id && this.idx1 !== -1) {
-      // this.store.updateStatus({
-      //   idx1: this.idx1!,
-      //   idx2: this.idx2 ?? -1,
-      //   id: this.id,
-      //   status: CommentStatus.UPDATE,
-      // });
-
       const values = {
         idx1: this.idx1!,
         idx2: this.idx2 ?? -1,
@@ -131,6 +127,21 @@ export class CommentCard implements OnInit {
       };
 
       this.store.setUpvote(values);
+    }
+  }
+
+  cancelEdit() {
+    if (this.state.status() === CommentStatus.REPLY) {
+      this.deleteAction();
+    } else if (this.id && this.idx1 !== -1) {
+      const values = {
+        idx1: this.idx1!,
+        idx2: this.idx2 ?? -1,
+        id: this.id,
+        status: CommentStatus.INFORMATION,
+      };
+
+      this.store.updateStatus(values);
     }
   }
 }
