@@ -1,8 +1,9 @@
+import { describe, it, beforeEach, expect } from 'vitest';
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { provideZonelessChangeDetection } from '@angular/core';
 import { RouterTestingHarness } from '@angular/router/testing';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes, provideRouter } from '@angular/router';
 import { App } from './app';
 
 @Component({
@@ -13,18 +14,16 @@ class MockHomeComponent {}
 
 const routes: Routes = [{ path: '', component: MockHomeComponent }];
 
-describe('App', () => {
+describe('App (Vitest)', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [App, RouterModule.forRoot(routes), MockHomeComponent],
-      providers: [provideZonelessChangeDetection()],
+      providers: [provideRouter(routes), provideZonelessChangeDetection()],
     }).compileComponents();
   });
 
   it('should create the app', () => {
     const fixture = TestBed.createComponent(App);
     const app = fixture.componentInstance;
-
     expect(app).toBeTruthy();
   });
 

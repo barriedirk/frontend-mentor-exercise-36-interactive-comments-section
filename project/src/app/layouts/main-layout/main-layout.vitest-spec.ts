@@ -1,19 +1,20 @@
+import { beforeEach, describe, expect, it } from 'vitest';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ModalDeleteComment } from './modal-delete-comment';
+import { MainLayout } from './main-layout';
 import { provideZonelessChangeDetection } from '@angular/core';
 
-describe('ModalDeleteCommentComponent', () => {
-  let component: ModalDeleteComment;
-  let fixture: ComponentFixture<ModalDeleteComment>;
+describe('MainLayout', () => {
+  let component: MainLayout;
+  let fixture: ComponentFixture<MainLayout>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ModalDeleteComment],
+      imports: [MainLayout],
+
       providers: [provideZonelessChangeDetection()],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ModalDeleteComment);
+    fixture = TestBed.createComponent(MainLayout);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

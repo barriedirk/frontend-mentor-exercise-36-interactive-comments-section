@@ -1,27 +1,15 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { TestBed } from '@angular/core/testing';
 import { provideZonelessChangeDetection } from '@angular/core';
-import { ComponentRef, EnvironmentInjector, createComponent } from '@angular/core';
 import { ModalDeleteCommentService } from './delete-comment-service';
 import { ModalDeleteComment } from './modal-delete-comment';
-import { Component, EventEmitter, Output } from '@angular/core';
-
-// Mock component to avoid templateUrl issues
-@Component({
-  selector: 'app-modal-delete-comment',
-  standalone: true,
-  template: `<div>Mock Modal</div>`,
-})
-export class MockModalDeleteComment {
-  @Output() close = new EventEmitter<string>();
-}
 
 describe('ModalDeleteCommentService (Vitest)', () => {
   let service: ModalDeleteCommentService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MockModalDeleteComment],
+      imports: [ModalDeleteComment],
       providers: [provideZonelessChangeDetection()],
     }).compileComponents();
 

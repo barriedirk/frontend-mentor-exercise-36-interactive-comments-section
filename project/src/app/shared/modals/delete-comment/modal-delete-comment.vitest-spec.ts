@@ -1,9 +1,10 @@
+import { beforeEach, describe, expect, it } from 'vitest';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ModalDeleteComment } from './modal-delete-comment';
 import { provideZonelessChangeDetection } from '@angular/core';
 
-describe('ModalDeleteCommentComponent', () => {
+describe('ModalDeleteCommentComponent (Vitest)', () => {
   let component: ModalDeleteComment;
   let fixture: ComponentFixture<ModalDeleteComment>;
 
