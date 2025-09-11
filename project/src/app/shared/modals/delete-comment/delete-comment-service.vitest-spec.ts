@@ -1,14 +1,27 @@
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { TestBed } from '@angular/core/testing';
 import { provideZonelessChangeDetection } from '@angular/core';
+import { ComponentRef, EnvironmentInjector, createComponent } from '@angular/core';
 import { ModalDeleteCommentService } from './delete-comment-service';
 import { ModalDeleteComment } from './modal-delete-comment';
+import { Component, EventEmitter, Output } from '@angular/core';
 
-describe('ModalDeleteCommentService', () => {
+// Mock component to avoid templateUrl issues
+@Component({
+  selector: 'app-modal-delete-comment',
+  standalone: true,
+  template: `<div>Mock Modal</div>`,
+})
+export class MockModalDeleteComment {
+  @Output() close = new EventEmitter<string>();
+}
+
+describe('ModalDeleteCommentService (Vitest)', () => {
   let service: ModalDeleteCommentService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ModalDeleteComment],
+      imports: [MockModalDeleteComment],
       providers: [provideZonelessChangeDetection()],
     }).compileComponents();
 
@@ -25,14 +38,12 @@ describe('ModalDeleteCommentService', () => {
     const modalElement = document.querySelector('app-modal-delete-comment');
     expect(modalElement).toBeTruthy();
 
-    // Simulate closing the modal
     const modalRef = (service as any).modalRef;
     modalRef.instance.close.emit('confirmed');
 
     const result = await promise;
     expect(result).toBe('confirmed');
 
-    // Modal should be removed
     expect(document.querySelector('app-modal-delete-comment')).toBeNull();
   });
 });

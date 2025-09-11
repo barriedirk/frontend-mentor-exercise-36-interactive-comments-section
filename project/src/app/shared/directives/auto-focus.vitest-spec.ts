@@ -1,37 +1,34 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AutoFocus } from './auto-focus';
-import { By } from '@angular/platform-browser';
+import { provideZonelessChangeDetection } from '@angular/core';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 @Component({
+  standalone: true,
+  imports: [AutoFocus],
   template: `<input type="text" appAutoFocus />`,
 })
 class TestComponent {}
 
-describe('AutoFocus Directive', () => {
+describe('AutoFocus Directive (Vitest)', () => {
   let fixture: ComponentFixture<TestComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TestComponent, AutoFocus],
+      imports: [TestComponent],
+      providers: [provideZonelessChangeDetection()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TestComponent);
     fixture.detectChanges();
   });
 
-  it('should create an instance', () => {
-    const directiveInstance = fixture.debugElement
-      .query(By.directive(AutoFocus))
-      .injector.get(AutoFocus);
-    expect(directiveInstance).toBeTruthy();
-  });
-
   it('should focus the input element after view init', async () => {
-    const inputEl = fixture.debugElement.query(By.css('input')).nativeElement as HTMLInputElement;
+    const inputEl = fixture.nativeElement.querySelector('input') as HTMLInputElement;
 
-    await new Promise((resolve) => setTimeout(resolve, 0)); // let setTimeout run
+    await new Promise((resolve) => setTimeout(resolve, 0));
+
     expect(document.activeElement).toBe(inputEl);
   });
 });
