@@ -1,7 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { describe, it, beforeEach, expect, vi } from 'vitest';
+import { TestBed } from '@angular/core/testing';
 import { provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture } from '@angular/core/testing';
 import { CommentShortcut } from './comment-shortcut';
-
 import { CommentCardState } from '../../services/comment-card-state';
 import { ModalDeleteCommentService } from '@modals/delete-comment/delete-comment-service';
 import { CommentStatus } from '@features/comments/components/comment-card/services/comment-card-models';
@@ -18,20 +19,21 @@ class MockCommentCardState extends CommentCardState {
   }
 }
 
-describe('CommentShortcut', () => {
-  let fixture: ComponentFixture<CommentShortcut>;
+const mockModalService = {
+  open: vi.fn(),
+};
+
+describe('CommentShortcut (Vitest)', () => {
   let component: CommentShortcut;
-  let modalService: jasmine.SpyObj<ModalDeleteCommentService>;
+  let fixture: ComponentFixture<CommentShortcut>;
 
   beforeEach(async () => {
-    modalService = jasmine.createSpyObj('ModalDeleteCommentService', ['open']);
-
     await TestBed.configureTestingModule({
       imports: [CommentShortcut],
       providers: [
         provideZonelessChangeDetection(),
         { provide: CommentCardState, useClass: MockCommentCardState },
-        { provide: ModalDeleteCommentService, useValue: modalService },
+        { provide: ModalDeleteCommentService, useValue: mockModalService },
       ],
     }).compileComponents();
 
@@ -51,66 +53,71 @@ describe('CommentShortcut', () => {
     const editBtn = compiled.querySelector('[data-cy^="Edit comment"]');
     const replyBtn = compiled.querySelector('[data-cy^="Reply comment"]');
 
-    expect(deleteBtn).not.toBeNull();
-    expect(editBtn).not.toBeNull();
-    expect(replyBtn).toBeNull();
+    expect(deleteBtn).toBeTruthy();
+    expect(editBtn).toBeTruthy();
+    expect(replyBtn).toBeNull(); // Not your own = no reply
   });
 
-  it('should render Reply button when isYourOwnComment is false', () => {
+  it('should render Reply button when isYourOwnComment is false', async () => {
     component.state.isYourOwnComment.set(false);
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement as HTMLElement;
 
     const replyBtn = compiled.querySelector('[data-cy^="Reply comment"]');
+    expect(replyBtn).toBeTruthy();
+
     const deleteBtn = compiled.querySelector('[data-cy^="Delete comment"]');
     const editBtn = compiled.querySelector('[data-cy^="Edit comment"]');
-
-    expect(replyBtn).not.toBeNull();
     expect(deleteBtn).toBeNull();
     expect(editBtn).toBeNull();
   });
 
   it('should emit reply event when Reply button clicked', () => {
+    const spy = vi.fn();
+    component.reply.subscribe(spy);
+
     component.state.isYourOwnComment.set(false);
     fixture.detectChanges();
-
-    spyOn(component.reply, 'emit');
 
     const replyBtn = fixture.nativeElement.querySelector('[data-cy^="Reply comment"]');
     replyBtn.click();
 
-    expect(component.reply.emit).toHaveBeenCalled();
+    expect(spy).toHaveBeenCalled();
   });
 
   it('should emit edit event when Edit button clicked', () => {
-    spyOn(component.edit, 'emit');
+    const spy = vi.fn();
+    component.edit.subscribe(spy);
 
     const editBtn = fixture.nativeElement.querySelector('[data-cy^="Edit comment"]');
     editBtn.click();
 
-    expect(component.edit.emit).toHaveBeenCalled();
+    expect(spy).toHaveBeenCalled();
   });
 
-  it('should emit delete when modal confirms "yes"', async () => {
-    spyOn(component.delete, 'emit');
-    modalService.open.and.returnValue(Promise.resolve('yes'));
+  it('should call modal and emit delete when confirmed', async () => {
+    const spy = vi.fn();
+    component.delete.subscribe(spy);
+
+    mockModalService.open.mockResolvedValueOnce('yes');
 
     const deleteBtn = fixture.nativeElement.querySelector('[data-cy^="Delete comment"]');
     await deleteBtn.click();
 
-    expect(modalService.open).toHaveBeenCalled();
-    expect(component.delete.emit).toHaveBeenCalled();
+    expect(mockModalService.open).toHaveBeenCalled();
+    expect(spy).toHaveBeenCalled();
   });
 
-  it('should NOT emit delete when modal returns "no"', async () => {
-    spyOn(component.delete, 'emit');
-    modalService.open.and.returnValue(Promise.resolve('no'));
+  it('should not emit delete when modal canceled', async () => {
+    const spy = vi.fn();
+    component.delete.subscribe(spy);
+
+    mockModalService.open.mockResolvedValueOnce('no');
 
     const deleteBtn = fixture.nativeElement.querySelector('[data-cy^="Delete comment"]');
     await deleteBtn.click();
 
-    expect(modalService.open).toHaveBeenCalled();
-    expect(component.delete.emit).not.toHaveBeenCalled();
+    expect(spy).not.toHaveBeenCalled();
   });
 });

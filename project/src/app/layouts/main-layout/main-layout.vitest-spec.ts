@@ -10,7 +10,6 @@ describe('MainLayout', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [MainLayout],
-
       providers: [provideZonelessChangeDetection()],
     }).compileComponents();
 

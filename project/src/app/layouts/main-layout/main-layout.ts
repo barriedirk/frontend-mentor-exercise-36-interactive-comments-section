@@ -13,7 +13,6 @@ import { Footer } from './components/footer/footer';
       <app-footer />
     </div>
   `,
-  styleUrl: './main-layout.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainLayout {}
