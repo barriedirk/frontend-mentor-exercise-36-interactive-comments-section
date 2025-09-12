@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, it } from 'vitest';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommentUpvote } from './comment-upvote';
 import { Injectable, provideZonelessChangeDetection } from '@angular/core';
@@ -17,7 +18,7 @@ class MockCommentCardState extends CommentCardState {
   }
 }
 
-describe('CommentUpvote', () => {
+describe('CommentUpvote (Vitest)', () => {
   let component: CommentUpvote;
   let fixture: ComponentFixture<CommentUpvote>;
 

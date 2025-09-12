@@ -1,46 +1,43 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { describe, it, beforeEach, expect, vi } from 'vitest';
+import { TestBed } from '@angular/core/testing';
+import { provideZonelessChangeDetection } from '@angular/core';
+
 import { CommentCard } from './comment-card';
 import { CommentCardState } from './services/comment-card-state';
 import { CommentStatus } from './services/comment-card-models';
 
 import { GlobalStore } from '@app/state';
-import { provideZonelessChangeDetection } from '@angular/core';
 
-describe('CommentCard', () => {
+class MockGlobalStore {
+  updateComment = vi.fn();
+  getUpvote = vi.fn();
+  deleteComment = vi.fn();
+  updateStatus = vi.fn();
+  replyComment = vi.fn();
+  setUpvote = vi.fn();
+}
+
+describe('CommentCard (Vitest)', () => {
   let component: CommentCard;
-  let fixture: ComponentFixture<CommentCard>;
-  let mockStore: jasmine.SpyObj<InstanceType<typeof GlobalStore>>;
+  let mockStore: MockGlobalStore;
 
   beforeEach(async () => {
-    mockStore = jasmine.createSpyObj<InstanceType<typeof GlobalStore>>('GlobalStore', [
-      'updateComment',
-      'getUpvote',
-      'deleteComment',
-      'updateStatus',
-      'replyComment',
-      'setUpvote',
-    ]);
+    mockStore = new MockGlobalStore();
 
     await TestBed.configureTestingModule({
       imports: [CommentCard],
-      providers: [
-        { provide: GlobalStore, useValue: mockStore },
-        provideZonelessChangeDetection(), // Optional: to avoid Zone.js
-      ],
+      providers: [{ provide: GlobalStore, useValue: mockStore }, provideZonelessChangeDetection()],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CommentCard);
+    const fixture = TestBed.createComponent(CommentCard);
     component = fixture.componentInstance;
 
-    // Set input values
     component.idx1 = 0;
     component.id = 1;
     component.currentUser = {
       username: 'test-user',
       image: { png: '', webp: '' },
     };
-
-    fixture.detectChanges();
   });
 
   it('should call updateComment with correct data on updateContent', () => {
@@ -50,10 +47,11 @@ describe('CommentCard', () => {
     component.updateContent('Updated content');
 
     expect(mockStore.updateComment).toHaveBeenCalledWith(
-      jasmine.objectContaining({
+      expect.objectContaining({
         content: 'Updated content',
         id: 1,
         status: CommentStatus.UPDATE,
+        user: component.currentUser,
       })
     );
   });

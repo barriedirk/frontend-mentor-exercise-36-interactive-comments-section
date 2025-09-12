@@ -1,9 +1,9 @@
+import { beforeEach, describe, expect, it } from 'vitest';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { Comments } from './comments';
 import { provideZonelessChangeDetection } from '@angular/core';
 
-describe('Comments', () => {
+describe('Comments (Vitest)', () => {
   let component: Comments;
   let fixture: ComponentFixture<Comments>;
 

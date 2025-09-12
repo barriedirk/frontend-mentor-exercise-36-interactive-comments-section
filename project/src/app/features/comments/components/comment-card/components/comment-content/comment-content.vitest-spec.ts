@@ -1,8 +1,9 @@
+import { beforeEach, describe, expect, it } from 'vitest';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CommentUpvote } from './comment-upvote';
+import { CommentContent } from './comment-content';
+import { Comment, CommentStatus } from '@models/comment';
 import { Injectable, provideZonelessChangeDetection } from '@angular/core';
 import { CommentCardState } from '../../services/comment-card-state';
-import { Comment, CommentStatus } from '@models/comment';
 
 @Injectable()
 class MockCommentCardState extends CommentCardState {
@@ -17,20 +18,20 @@ class MockCommentCardState extends CommentCardState {
   }
 }
 
-describe('CommentUpvote', () => {
-  let component: CommentUpvote;
-  let fixture: ComponentFixture<CommentUpvote>;
+describe('CommentContent (Vitest)', () => {
+  let component: CommentContent;
+  let fixture: ComponentFixture<CommentContent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CommentUpvote],
+      imports: [CommentContent],
       providers: [
         provideZonelessChangeDetection(),
         { provide: CommentCardState, useClass: MockCommentCardState },
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CommentUpvote);
+    fixture = TestBed.createComponent(CommentContent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
