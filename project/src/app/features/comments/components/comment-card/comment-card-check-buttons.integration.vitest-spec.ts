@@ -107,7 +107,6 @@ describe('CommentCard - check Delete, Edit, or Reply emits the correct events - 
     fixture = TestBed.createComponent(TestHostComponent);
     hostComponent = fixture.componentInstance;
 
-    // Simulate another user
     hostComponent.currentUser = { username: 'other-user', image: { png: '', webp: '' } };
     hostComponent.comment.user.username = 'comment-owner';
 

@@ -9,6 +9,7 @@
   ) {
     <app-comment-card
       class="self-stretch px-[17px]"
+      [attr.data-cy]="`Comment id:${comment.id}`"
       [idx1]="idx1"
       [comment]="comment"
       [currentUser]="store.currentUser()"
@@ -26,6 +27,7 @@
           ) {
             <app-comment-card
               class="self-stretch pl-[17px]"
+              [attr.data-cy]="`Reply to comment id:${comment.id}`"
               [idx1]="idx1"
               [idx2]="idx2"
               [comment]="reply"
