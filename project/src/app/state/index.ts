@@ -1,7 +1,15 @@
 import { computed, inject } from '@angular/core';
 import { signalStore, withState, withMethods, patchState } from '@ngrx/signals';
 
-import { CurrentUser, Comment, User } from '@app/shared/models/comment';
+import {
+  CurrentUser,
+  Comment,
+  UpdateStatus,
+  UpdateComment,
+  DeleteComment,
+  ReplyComment,
+  UpvoteComment,
+} from '@app/shared/models/comment';
 
 import { USER_DATA_STATE, emptyComments, emptyCurrentUser, updateStorage } from './comments-state';
 import { CommentStatus } from '@features/comments/components/comment-card/services/comment-card-models';
@@ -176,41 +184,3 @@ export const GlobalStore = signalStore(
     },
   }))
 );
-
-export interface UpdateStatus {
-  status: string;
-  idx1: number;
-  idx2: number;
-  id: number;
-}
-
-export interface UpdateComment {
-  status: string;
-  idx1?: number;
-  idx2?: number;
-  id?: number;
-  content: string;
-  user?: User;
-}
-
-export interface DeleteComment {
-  idx1: number;
-  idx2: number;
-  id: number;
-}
-
-export interface ReplyComment {
-  idx1: number;
-  idx2: number;
-  id: number;
-  user?: User;
-}
-
-export interface UpvoteComment {
-  idx1: number;
-  idx2: number;
-  id: number;
-  score: number;
-  formerVote: number;
-  vote: number;
-}

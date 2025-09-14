@@ -48,3 +48,41 @@ export const CommentStatus = {
 };
 
 export type CommentStatusType = (typeof CommentStatus)[keyof typeof CommentStatus];
+
+export interface UpdateStatus {
+  status: string;
+  idx1: number;
+  idx2: number;
+  id: number;
+}
+
+export interface UpdateComment {
+  status: string;
+  idx1?: number;
+  idx2?: number;
+  id?: number;
+  content: string;
+  user?: User;
+}
+
+export interface DeleteComment {
+  idx1: number;
+  idx2: number;
+  id: number;
+}
+
+export interface ReplyComment {
+  idx1: number;
+  idx2: number;
+  id: number;
+  user?: User;
+}
+
+export interface UpvoteComment {
+  idx1: number;
+  idx2: number;
+  id: number;
+  score: number;
+  formerVote: number;
+  vote: number;
+}

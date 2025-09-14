@@ -23,6 +23,7 @@ describe('Comments Component (Integration with Vitest)', () => {
             comments: () => initialData.comments,
             currentUser: () => initialData.currentUser,
             getUpvote: () => 0,
+            replyComment: vi.fn(), // mock function
           },
         },
       ],
@@ -54,7 +55,8 @@ describe('Comments Component (Integration with Vitest)', () => {
       'app-comment-card:not([data-cy^="Reply to comment id:"])'
     );
 
-    expect(topLevelCards.length).toBe(3); // 2 top-level + 1 SEND input card
+    // 2 top-level + 1 SEND input card
+    expect(topLevelCards.length).toBe(3);
   });
 
   it('should render the correct number of replies', () => {
@@ -63,5 +65,26 @@ describe('Comments Component (Integration with Vitest)', () => {
     );
 
     expect(replyCards.length).toBe(2);
+  });
+
+  describe('Interaction: Reply flow', () => {
+    it('should call replyComment when "Reply" is clicked', async () => {
+      const commentCards = fixture.nativeElement.querySelectorAll(
+        'app-comment-card:not([data-cy^="Reply to comment id"])'
+      );
+
+      const commentToReply = commentCards[0];
+      const replyButton = commentToReply.querySelector('[aria-label="Reply to comment"]');
+
+      expect(replyButton, 'Reply button should exist').toBeTruthy();
+
+      (replyButton as HTMLButtonElement).click();
+      fixture.detectChanges();
+
+      await fixture.whenStable();
+
+      const store = TestBed.inject(GlobalStore);
+      expect(store.replyComment).toHaveBeenCalled();
+    });
   });
 });

@@ -21,6 +21,7 @@ describe('Comments Component (Integration)', () => {
             comments: () => initialData.comments,
             currentUser: () => initialData.currentUser,
             getUpvote: () => 0,
+            replyComment: jasmine.createSpy('replyComment'), // mock function
           },
         },
       ],
@@ -54,6 +55,7 @@ describe('Comments Component (Integration)', () => {
       'app-comment-card:not([data-cy^="Reply to comment id:"])'
     );
 
+    // 2 top-level + 1 SEND input card
     expect(topLevelCards.length).toBe(3);
   });
 
@@ -62,6 +64,27 @@ describe('Comments Component (Integration)', () => {
       'app-comment-card[data-cy^="Reply to comment id"]'
     );
 
-    expect(replyCards.length).toBe(2); // 2 replies inside comment id: 2
+    expect(replyCards.length).toBe(2);
+  });
+
+  describe('Interaction: Reply flow', () => {
+    it('should call replyComment when "Reply" is clicked', async () => {
+      const commentCards = fixture.nativeElement.querySelectorAll(
+        'app-comment-card:not([data-cy^="Reply to comment id"])'
+      );
+
+      const commentToReply = commentCards[0];
+      const replyButton = commentToReply.querySelector('[aria-label="Reply to comment"]');
+
+      expect(replyButton).withContext('Reply button should exist').toBeTruthy();
+
+      replyButton.click();
+      fixture.detectChanges();
+
+      await fixture.whenStable();
+
+      const store = TestBed.inject(GlobalStore);
+      expect(store.replyComment).toHaveBeenCalled(); // ✅ This passes
+    });
   });
 });
