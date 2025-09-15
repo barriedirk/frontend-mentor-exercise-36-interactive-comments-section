@@ -67,12 +67,14 @@ export class CommentCard implements OnInit {
 
     const values = {
       idx1: this.idx1,
-      idx2: this.idx2,
+      idx2: this.idx2 ?? -1,
       id: this.id,
       content,
       user: this.state.currentUser(),
       status,
     };
+
+    console.log(values);
 
     this.store.updateComment(values);
   }

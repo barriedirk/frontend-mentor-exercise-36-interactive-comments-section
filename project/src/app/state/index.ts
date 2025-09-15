@@ -93,6 +93,7 @@ export const GlobalStore = signalStore(
       let lastId = store.lastId();
       let comment: Comment;
 
+      debugger;
       if (status === CommentStatus.SEND) {
         lastId++;
 
