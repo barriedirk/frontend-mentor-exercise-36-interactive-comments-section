@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
+import { AutoFocus } from '@app/shared/directives/auto-focus';
 
 @Component({
   selector: 'app-modal-delete-comment',
-  imports: [],
+  imports: [AutoFocus],
   templateUrl: './modal-delete-comment.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -30,12 +30,20 @@
   color: var(--clr-purple-600);
 }
 
+@utility txt-purple-400 {
+  color: var(--clr-purple-400);
+}
+
 @utility txt-purple-200 {
   color: var(--clr-purple-200);
 }
 
 @utility txt-pink-400 {
   color: var(--clr-pink-400);
+}
+
+@utility txt-pink-300 {
+  color: var(--clr-pink-300);
 }
 
 @utility txt-pink-200 {

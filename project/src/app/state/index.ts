@@ -51,9 +51,8 @@ export const GlobalStore = signalStore(
 
       upvote[id] = vote;
 
-      // @todo, for now, no update the localstorage
-      // updateStorage(comments, 'comments');
-      // updateStorage(upvote, 'upvote');
+      updateStorage(comments, 'comments');
+      updateStorage(upvote, 'upvote');
       patchState(store, { upvote, comments });
     },
     loggedInUser: computed<CurrentUser>(() => store.currentUser()),
@@ -69,8 +68,7 @@ export const GlobalStore = signalStore(
         }
       }
 
-      // @todo, for now, no update the localstorage
-      // updateStorage(comments, 'comments');
+      updateStorage(comments, 'comments');
       patchState(store, { comments });
     },
     updateStatus({ status, idx1, idx2, id }: UpdateStatus) {
@@ -84,8 +82,7 @@ export const GlobalStore = signalStore(
         }
       }
 
-      // @todo, for now, no update the localstorage
-      // updateStorage(comments, 'comments');
+      updateStorage(comments, 'comments');
       patchState(store, { comments });
     },
     updateComment({ status, idx1, idx2, id, content, user }: UpdateComment) {
@@ -93,7 +90,6 @@ export const GlobalStore = signalStore(
       let lastId = store.lastId();
       let comment: Comment;
 
-      debugger;
       if (status === CommentStatus.SEND) {
         lastId++;
 
@@ -121,8 +117,7 @@ export const GlobalStore = signalStore(
         }
       }
 
-      // @todo, for now, no update the localstorage
-      // updateStorage(comments, 'comments');
+      updateStorage(comments, 'comments');
       patchState(store, { lastId, comments });
     },
     replyComment({ idx1, idx2, id, user }: ReplyComment) {
@@ -179,8 +174,7 @@ export const GlobalStore = signalStore(
         }
       }
 
-      // @todo, for now, no update the localstorage
-      // updateStorage(comments, 'comments');
+      updateStorage(comments, 'comments');
       patchState(store, { lastId, comments });
     },
   }))

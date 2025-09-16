@@ -3,6 +3,7 @@
 @let isYourOwnComment = state.isYourOwnComment();
 
 <div
+  [attr.data-cy]="'status: ' + status"
   role="group"
   aria-label="Comment actions"
   class="flex flex-row items-center justify-center gap-2"
@@ -10,7 +11,7 @@
   @if (status !== CommentStatus.SEND) {
     @if (isYourOwnComment) {
       <button
-        class="text-preset-2-medium txt-pink-200 hover:txt-pink-400 active:txt-pink-400 focus-visible:txt-pink-400 justifify-center align-center flex items-center gap-1.5"
+        class="text-preset-2-medium txt-pink-300 disabled:txt-pink-200 hover:txt-pink-400 active:txt-pink-400 focus-visible:txt-pink-400 justifify-center align-center flex items-center gap-1.5"
         aria-label="Delete comment"
         title="Delete comment"
         (click)="deleteAction()"
@@ -25,7 +26,7 @@
     }
     @if (!isYourOwnComment) {
       <button
-        class="text-preset-2-medium txt-purple-200 hover:txt-purple-600 active:txt-purple-600 focus-visible:txt-purple-600 justifify-center align-center flex items-center gap-1.5"
+        class="text-preset-2-medium disabled:txt-purple-200 txt-purple-400 hover:txt-purple-600 active:txt-purple-600 focus-visible:txt-purple-600 justifify-center align-center flex items-center gap-1.5"
         aria-label="Reply to comment"
         title="Reply to comment"
         (click)="replyAction()"
@@ -39,7 +40,8 @@
     }
     @if (isYourOwnComment) {
       <button
-        class="text-preset-2-medium txt-purple-200 hover:txt-purple-600 active:txt-purple-600 focus-visible:txt-purple-600 justifify-center align-center flex items-center gap-1.5"
+        [disabled]="status === CommentStatus.UPDATE"
+        class="text-preset-2-medium disabled:txt-purple-200 txt-purple-400 hover:txt-purple-600 active:txt-purple-600 focus-visible:txt-purple-600 justifify-center align-center flex items-center gap-1.5 disabled:pointer-events-none"
         aria-label="Edit comment"
         title="Edit comment"
         (click)="editAction()"

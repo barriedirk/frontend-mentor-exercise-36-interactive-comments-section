@@ -12,10 +12,13 @@
   --clr-starstruck: hsl(237, 37%, 51%);
 
   --clr-purple-600: hsl(238, 40%, 52%);
+  --clr-purple-400: hsl(238.5, 48.5%, 68.5%);
   --clr-purple-200: hsl(239, 57%, 85%);
 
   --clr-pink-400: hsl(358, 79%, 66%);
+  // overwrite tailwind variable color
   --color-pink-400: hsl(358, 79%, 66%);
+  --clr-pink-300: hsl(357.5, 89.5%, 76%);
   --clr-pink-200: hsl(357, 100%, 86%);
 
   --ff: 'Rubik', sans-serif;
