@@ -6,9 +6,9 @@
 * [URL Site](https://barriedirk.github.io/frontend-mentor-exercise-36-interactive-comments-section/#/)
 * [Repository Frontend Mentor](https://www.frontendmentor.io/profile/barriedirk)
 
-[Unit-Test and Integration using karma-jasmine](test-unit-test-integration-karma.png)
-[Unit-Test and Integration using vitest](test-vitest.png)
-[E22 using cypress](test-cypress.png)
+![Unit-Test and Integration using karma-jasmine](test-unit-test-integration-karma.png)
+![Unit-Test and Integration using vitest](test-vitest.png)
+![E22 using cypress](test-cypress.png)
 
 ## ✅ Testing Summary – *Interactive Comments Section*
 
